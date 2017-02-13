@@ -55,7 +55,13 @@ def test2():
     #This give me the kind of plants
     kind_of_plants = data["Family"].unique()
     
-    
+    """This prints the data per family
+    for k in kind_of_plants:
+        print (k)
+        print (data[data["Family"] == k])
+        
+    """
+
 
     k= 3
     #This columns are the selected features  for doing the euclidean distance.
@@ -80,7 +86,32 @@ def test2():
             #print (data.loc[id_neigh])
             #print()
 
+    
 
+    """ Print  the data classified by the selected columns
+    for k in kind_of_plants:
+        print (k)
+        sol = data[data["Family"] == k]
+        print sol[columns]
+    """
+
+    data_plot = []
+
+    #Add to the plot file training data
+    for k in kind_of_plants:    
+        sol = training_set[training_set["Family"] == k]
+        data_plot.append(sol.as_matrix(columns))
+
+    #Add to the plot file test data
+    for k in kind_of_plants:
+        
+        sol = test_set[test_set["Family"] == k]
+        data_plot.append(sol.as_matrix(columns))
+
+
+    p.plot(data_plot)
+    
+    
 
 if (__name__ == "__main__"):
-    test1()
+    test2()
