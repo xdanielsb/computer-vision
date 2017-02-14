@@ -54,6 +54,14 @@ def euclidean_distance(row, data_to_predict, distance_columns):
 
 """
     Applying knn
+    training_set -> Classified data -->  DataFrame
+    test_set -> Data for testing the model -->  DataFrame
+    k -> number of neighbors --> int
+    columns -> Features for applying the euclidean distance
+
+
+    Return
+    The k_neighbors
 """
 
 def knn(training_set, test_set, k, columns):
@@ -68,9 +76,28 @@ def knn(training_set, test_set, k, columns):
         for index2, row in training_set.iterrows(): 
             distances.append((euclidean_distance(row, data_to_predict, columns), index2)) 
         
+        #Sort for later get the less distances
         distances.sort()
-        predictions.append(( index, distances[:k]))
+        ###It is necesary if there are at least k neighbors
+        if (len(distances) >= k):
+            k_neighbors = distances[:k]
 
+        n = []  #Store the data serie of each neighbore based on his id 
+               
+        
+        for k in k_neighbors:
+            id_n = k[1]
+            distance_n = k[0]
+            neig = training_set.loc[id_n]
+            n.append((neig, distance_n))
+        
+
+        
+
+        #index --> of the item of the test that we want to predict
+        predictions.append(( index, n )) ##Select the k neighbors
+    print (predictions)
+    
     return predictions
 
 
