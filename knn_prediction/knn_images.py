@@ -36,28 +36,14 @@ def knn(img1, img2, f):
         for y in range(0, dy1):
             ya = y*f +1 
             
-            #up
+            #8 neighbors
             img2[ya-1][xa ] = img2[ya][xa]
             img2[ya-1][xa-1 ] = img2[ya][xa]
             img2[ya-1][xa+1 ] = img2[ya][xa]
-            #down
             img2[ya+1][xa] = img2[ya][xa]
             img2[ya+1][xa-1] = img2[ya][xa]
             img2[ya+1][xa +1] = img2[ya][xa]
-            #left
             img2[ya][xa-1] = img2[ya][xa]
-            #right
             img2[ya][xa+1] = img2[ya][xa]
 
-
-factor = 2 ## x2 the image
-img1 = cv2.imread("../datasets/smile.jpg", 0)
-img2 = zoom_image(img1,factor)
-knn(img1, img2, factor)
-
-cv2.imshow('image',img1)
-cv2.imshow('image2',img2)
-
-cv2.waitKey(0)
-cv2.destroyAllWindows()
 

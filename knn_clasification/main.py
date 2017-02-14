@@ -1,6 +1,6 @@
-from knn.from_scratch_knn import *
+from from_scratch_knn import *
 import numpy as np
-from knn import plot as p
+from . import plot as p
 
 
 def test1():
