@@ -1,5 +1,7 @@
 from __future__ import print_function 
 from operator import itemgetter
+import numpy as np
+import pandas as pd
 import math 
 
 """
@@ -59,7 +61,6 @@ def euclidean_distance(row, data_to_predict, distance_columns):
     k -> number of neighbors --> int
     columns -> Features for applying the euclidean distance
 
-
     Return
     The k_neighbors
 """
@@ -82,23 +83,44 @@ def knn(training_set, test_set, k, columns):
         if (len(distances) >= k):
             k_neighbors = distances[:k]
 
-        n = []  #Store the data serie of each neighbore based on his id 
+        n = []  #Store the data serie of each neighbor based on his id 
                
         
         for k in k_neighbors:
             id_n = k[1]
             distance_n = k[0]
             neig = training_set.loc[id_n]
-            n.append((neig, distance_n))
-        
-
-        
+            n.append((neig, distance_n, id_n))
 
         #index --> of the item of the test that we want to predict
         predictions.append(( index, n )) ##Select the k neighbors
-    print (predictions)
+    
     
     return predictions
 
 
+"""
+    Split the list of k nearest k_neighbors
+"""
+def get_locations_neighbors(predictions, columns):
+    all_p =  []
+    for p in predictions:
+        id_predicted_value  = p[0]
+        k_neighbors = p[1]
+        l  = [] ## neighbors of each prediction
+        for k in k_neighbors:
+            neig_k = k[0]  #neigbor 
+            dis_k = k[1] #Distance to the id_predicted_value
+            id_k = k[2]
+        
+            #print("\nid: ", id_k)
+            #print("distance:", dis_k)
+            aux = np.array(neig_k[columns], dtype=pd.Series) # Transfor locations to numpy array
+            l.append(aux)
 
+            #print("data neighbors: ", aux)
+            
+        all_p.append((id_predicted_value, l))
+    print (all_p)
+
+            

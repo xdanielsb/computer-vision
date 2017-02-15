@@ -1,6 +1,6 @@
 from from_scratch_knn import *
 import numpy as np
-from . import plot as p
+import plot as p
 
 
 def test1():
@@ -43,7 +43,7 @@ def test1():
 def test2():
 
     #All the sample
-    data = load_data_set("datasets/flowers.csv")
+    data = load_data_set("../datasets/flowers.csv")
     
     #The training set is going to be the 99 %
     training_set = get_training_set(0.99, data)
@@ -59,7 +59,6 @@ def test2():
     for k in kind_of_plants:
         print (k)
         print (data[data["Family"] == k])
-        
     """
 
 
@@ -68,9 +67,12 @@ def test2():
     #columns = ["a", "b", "c", "d"]
     columns = ["a", "b"]
     predictions = knn(training_set, test_set, k, columns)
+
+    get_locations_neighbors(predictions, columns)
     
         
 
+    
     """ Print  the data classified by the selected columns
     for k in kind_of_plants:
         print (k)
@@ -78,21 +80,19 @@ def test2():
         print sol[columns]
     """
 
-    data_plot = []
+    #Only it's possible to plot in 2d on this project
+    if (len(columns) == 2):
+        data_plot = []
 
-    #Add to the plot file training data
-    for k in kind_of_plants:    
-        sol = training_set[training_set["Family"] == k]
-        data_plot.append(sol.as_matrix(columns))
+        #Add to the plot data refers to the training data
+        for k in kind_of_plants:    
+            sol = training_set[training_set["Family"] == k]
+            data_plot.append(sol.as_matrix(columns))
 
-    #Add to the plot file test data
-    for k in kind_of_plants:
-        
-        sol = test_set[test_set["Family"] == k]
-        data_plot.append(sol.as_matrix(columns))
-
-    
-
+        #Add to the plot data referst to the test data
+        for k in kind_of_plants:   
+            sol = test_set[test_set["Family"] == k]
+            data_plot.append(sol.as_matrix(columns))
 
     p.plot(data_plot)
     
