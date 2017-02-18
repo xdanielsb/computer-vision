@@ -49,7 +49,8 @@ def rotation(img, angle):
 
 if (__name__=="__main__"):
     img = cv2.imread("../assets/smile.jpg",0)
-    img_rotate = rotation(img, 220)
+    angle = 360
+    img_rotate = rotation(img, angle)
     cv2.imshow("Real Image", img)
     cv2.imshow("Rotate Image", img_rotate)
     
