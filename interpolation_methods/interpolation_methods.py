@@ -40,7 +40,7 @@ def test_nearest_neighbors(img, factor):
 if (__name__== "__main__"):
 
     img = cv2.imread("../assets/images/smile.png", 0)
-    if (img == None):
+    if (img is None):
         print("Oppss, the image was nos loaded.")
     else:
         cv2.imshow('Real Image',img)
