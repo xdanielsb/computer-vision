@@ -35,15 +35,15 @@ def knn(img1, img2, f):
         xa = x*f +1
         for y in range(0, dy1):
             ya = y*f +1 
-            
-            #8 neighbors
-            img2[ya-1][xa ] = img2[ya][xa]
-            img2[ya-1][xa-1 ] = img2[ya][xa]
-            img2[ya-1][xa+1 ] = img2[ya][xa]
-            img2[ya+1][xa] = img2[ya][xa]
-            img2[ya+1][xa-1] = img2[ya][xa]
-            img2[ya+1][xa +1] = img2[ya][xa]
-            img2[ya][xa-1] = img2[ya][xa]
-            img2[ya][xa+1] = img2[ya][xa]
+            for j in range(0,f):
+                #8 neighbors
+                img2[ya-j][xa ] = img2[ya][xa]
+                img2[ya-j][xa-j ] = img2[ya][xa]
+                img2[ya-j][xa+j ] = img2[ya][xa]
+                img2[ya+j][xa] = img2[ya][xa]
+                img2[ya+j][xa-j] = img2[ya][xa]
+                img2[ya+j][xa +j] = img2[ya][xa]
+                img2[ya][xa-j] = img2[ya][xa]
+                img2[ya][xa+j] = img2[ya][xa]
 
 
