@@ -13,7 +13,7 @@ def test_bicubic(img, factor):
     dimx, dimy = img_e_1.shape[0], img_e_1.shape[1] 
     for x in range(1, dimx):
         for y in range (1, dimy):
-            img_e_1[x][y] = get_bicubic_pixel(img, x,y)
+            img_e_1[x][y] = get_bicubic_pixel(img, x,y, factor)
     cv2.imshow('Cubic',img_e_1)
 
 
@@ -22,7 +22,7 @@ def test_bilinear(img, factor):
     dimx, dimy = img_e_3.shape[0], img_e_3.shape[1] 
     for x in range(1, dimx):
         for y in range (1, dimy):
-            img_e_3[x][y] = getBilinearPixel(img, x,y)
+            img_e_3[x][y] = getBilinearPixel(img, x,y, factor)
     cv2.imshow('Bilinear',img_e_3)
 
 
@@ -31,7 +31,7 @@ def test_nearest_neighbors(img, factor):
     dimx, dimy = img_e_2.shape[0], img_e_2.shape[1] 
     for x in range(1, dimx):
         for y in range (1, dimy):
-            img_e_2[x][y] = get_near_neighbor_pixel(img, x,y)
+            img_e_2[x][y] = get_near_neighbor_pixel(img, x,y, factor)
     cv2.imshow('Nearest Neighbor',img_e_2)
 
 
@@ -51,7 +51,7 @@ if (__name__== "__main__"):
 
         #test_bicubic(img, factor)
         #test_bilinear(img, factor)
-        #test_nearest_neighbors(img, factor)
+        test_nearest_neighbors(img, factor)
 
         print("---  The running time in seconds was: %s " % (time.time() - start_time))
         cv2.waitKey(0)

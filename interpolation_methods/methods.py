@@ -1,3 +1,4 @@
+import numpy as np
 """
     This function help us to create and image with new dimensions
 

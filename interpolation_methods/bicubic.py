@@ -15,7 +15,7 @@
     @return
     The value of the pixel using bicubic interpolation
 """
-def get_bicubic_pixel(img, x, y):
+def get_bicubic_pixel(img, x, y, factor):
     dimy, dimx = img.shape[1] -2, img.shape[0] -2
 
     #Cuantizar

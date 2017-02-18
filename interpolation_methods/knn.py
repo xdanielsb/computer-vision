@@ -14,7 +14,7 @@
 
 """
 
-def get_near_neighbor_pixel(img, x,y):
+def get_near_neighbor_pixel(img, x,y, factor):
     dimy, dimx = img.shape[1] -1, img.shape[0] -1
 
     #Cuantizar
