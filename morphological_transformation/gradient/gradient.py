@@ -2,6 +2,11 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
+"""
+    GRADIENT = DIFFERENCE BETWEEN DILATION AND EROSION
+                OF THE IMAGE
+"""
+
 
 """
     This function read an image
@@ -14,15 +19,16 @@ def readi(path, typer = "color"):
 
 
 
-def erode(img, num_iter=1):
+def gradient(img):
     kernel = np.ones((5,5),np.uint8)
-    result = cv2.erode(img, kernela, iterations  = num_iter)
+    result = cv2.morphologyEx(img, cv2.MORPH_GRADIENT, kernel)
     plt.subplot(1,2,1), plt.imshow(img, cmap="gray"), plt.title("Real Image")
-    plt.subplot(1,2,2), plt.imshow(result, cmap="gray"), plt.title("Dilate Image")
+    plt.subplot(1,2,2), plt.imshow(result, cmap="gray"), plt.title("Gradient Image")
     plt.show()
 
 
 if __name__ == "__main__":
     img = readi("../../assets/images/letterA.jpg", "gray")
-    erode(img,5)
+    gradient(img)
+
 
