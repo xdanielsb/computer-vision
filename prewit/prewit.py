@@ -26,42 +26,42 @@ def prewit(img):
 
     img2 = conv(img, N)
     plt.subplot(3,3,2)
-    plt.imshow(img2)
+    plt.imshow(img2, cmap="gray")
     plt.title('Conv with N')
 
     img3 = conv(img, S)
     plt.subplot(3,3,3)
-    plt.imshow(img3)
+    plt.imshow(img3, cmap="gray")
     plt.title('Conv with S')
 
     img4 = conv(img, E)
     plt.subplot(3,3,4)
-    plt.imshow(img4)
+    plt.imshow(img4, cmap="gray")
     plt.title('Conv with E')
 
     img5 = conv(img, O)
     plt.subplot(3,3,5)
-    plt.imshow(img5)
+    plt.imshow(img5, cmap="gray")
     plt.title('Conv with O')
 
     img6 = conv(img, SO)
     plt.subplot(3,3,6)
-    plt.imshow(img6)
+    plt.imshow(img6, cmap="gray")
     plt.title('Conv with SO')
 
     img7 = conv(img, NO)
     plt.subplot(3,3,7)
-    plt.imshow(img7)
+    plt.imshow(img7,cmap="gray")
     plt.title('Conv with NO')
 
     img8 = conv(img, SE)
     plt.subplot(3,3,8)
-    plt.imshow(img8)
+    plt.imshow(img8, cmap="gray")
     plt.title('Conv with SE')
 
     img9 = conv(img, NE)
     plt.subplot(3,3,9)
-    plt.imshow(img9)
+    plt.imshow(img9, cmap="gray")
     plt.title('Conv with NE')
 
 
@@ -77,18 +77,16 @@ def prewit(img):
                                img6[x][y], img7[x][y], img8[x][y], img9[x][y])
                             
 
-    #plt.show()
+    plt.show()
     cv2.imshow("Result", result)
     cv2.imshow("Real Image", img)
-    #print(img9)
     
-
 
 if (__name__ == "__main__"):
 
     #Read the image in gray scale   
     img = cv2.imread("../assets/images/smile.jpg", 0)
-   # cv2.imshow("Title",img)
+    cv2.imshow("Title",img)
     prewit(img)
     
     cv2.waitKey(0)

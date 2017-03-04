@@ -8,17 +8,12 @@ from matplotlib import pyplot as plt
     fig --> the number of the imagen
 """
 
-"""
-    God link
-    http://stackoverflow.com/questions/6871201/plot-two-histograms-at-the-same-time-with-matplotlib
-"""
-
 def plot (img, fig, name):
     bins = 256
     range_scale = [0,254]
-
+    nivel_transparencia = 0.5
    # plt.figure(fig)
-    plt.hist(img.ravel(),bins,range_scale, label=name, alpha=0.5);
+    plt.hist(img.ravel(),bins,range_scale, label=name, alpha=nivel_transparencia);
     plt.legend(loc='upper right')
 
 """
