@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
+from scipy.ndimage.morphology import binary_hit_or_miss
+from  scipy import ndimage
 
 
 """
@@ -12,18 +14,37 @@ def readi(path, typer = "color"):
     elif typer == "gray":
         return cv2.imread(path, 0)
 
+def get_structure(name="rectangular"):
+    # Rectangular Kernel
+    if name == "rectangular":
+        return cv2.getStructuringElement(cv2.MORPH_RECT,(5,5))
+    if name == "elliptical":
+        return cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5))
+    if name == "cross-shaped":
+        return cv2.getStructuringElement(cv2.MORPH_CROSS,(5,5))
+    print ("write a valid name\n")
 
 
-def thining(img, num_iter=1):
-    kernel = np.ones((5,5),np.uint8)
-    result = cv2.erode(img, kernela, iterations  = num_iter)
-    plt.subplot(1,2,1), plt.imshow(img, cmap="gray"), plt.title("Real Image")
-    plt.subplot(1,2,2), plt.imshow(result, cmap="gray"), plt.title("Dilate Image")
+def thining(img):
+    s1 = get_structure("rectangular")
+    result1 = ndimage.binary_hit_or_miss(img, structure1=s1).astype(np.int)
+    dimx,dimy  = result1.shape[0], result1.shape[1]
+
+    thin = np.zeros((dimx,dimy), np.uint8) 
+
+    for x in range(dimx):
+        for y in range(dimy):
+            thin[x,y] = img[x,y] - thin[x,y]
+
+    plt.subplot(1,3,1), plt.imshow(img, cmap="gray"), plt.title("Real Image")
+    plt.subplot(1,3,2), plt.imshow(result1, cmap="gray"), plt.title("Hit_or_miss Image")
+    plt.subplot(1,3,3), plt.imshow(thin, cmap="gray"), plt.title("Adelgazamiento Image")
+
     plt.show()
 
 
 if __name__ == "__main__":
     img = readi("../../assets/images/letterA.jpg", "gray")
-    erode(img,5)
+    thining(img)
 
 
