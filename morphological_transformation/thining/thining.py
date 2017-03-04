@@ -6,7 +6,7 @@ from  scipy import ndimage
 
 
 """
-    THINING = IMAGE - (IMAGE DILATE STRUCTURAL ELEMENT)
+    THINING = IMAGE - (IMAGE HIT OR MISS STRUCTURAL ELEMENT)
 """
 def readi(path, typer = "color"):
     if typer == "color":
