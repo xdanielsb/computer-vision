@@ -24,6 +24,6 @@ def brightness(img):
 
 
 if __name__ == "__main__":
-    img = readi("../assets/images/smile.png", "gray")
+    img = readi("../../assets/images/smile.png", "gray")
     print ("The brightness is :%d " %brightness(img))
 
