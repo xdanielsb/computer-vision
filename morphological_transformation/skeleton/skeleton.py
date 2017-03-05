@@ -47,7 +47,7 @@ def skeleton(img,iters=1, invertir_color=False):
     plt.show()
 
 if __name__ == "__main__":
-    img = readi("../../assets/images/silouete.png", "gray")
+    img = readi("../../assets/images/hand_3.jpg", "gray")
     invertir_color = True   #Cuando el fondo es negro lo aplicamos
     iters = 500
     if (invertir_color):
