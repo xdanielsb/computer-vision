@@ -1,7 +1,6 @@
 import cv2
 from matplotlib import pyplot as plt
 
-
 """
     This function read an image
 """
@@ -13,13 +12,13 @@ def readi(path, typer = "color"):
 
 
 def add(img2 , img1):
-    
+  
     dimx, dimy = img1.shape[0], img1.shape[1]
     #resize the image
     img3 = cv2.resize(img2, (dimy,dimx))
 
-    #cv2.addWeighted(src1, alpha, src2, beta, gamma[, dst[, dtype]]) → dst
-    img5 = cv2.addWeighted(img1, 0.2, img3, 0.3,0 )
+    #cv2.addWeighted(src1, alpha, src2, beta, gamma[, dst[, dtype]])
+    img5 = cv2.addWeighted(img1, 0.2, img3, 0.3,0)
 
     img4 = cv2.add(img1,img3)
 
