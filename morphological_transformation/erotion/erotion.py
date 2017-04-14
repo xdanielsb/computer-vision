@@ -16,13 +16,13 @@ def readi(path, typer = "color"):
 
 def erode(img, num_iter=1):
     kernel = np.ones((5,5),np.uint8)
-    result = cv2.erode(img, kernela, iterations  = num_iter)
+    result = cv2.erode(img, kernel, iterations  = num_iter)
     plt.subplot(1,2,1), plt.imshow(img, cmap="gray"), plt.title("Real Image")
-    plt.subplot(1,2,2), plt.imshow(result, cmap="gray"), plt.title("Dilate Image")
+    plt.subplot(1,2,2), plt.imshow(result, cmap="gray"), plt.title("Eroded Image")
     plt.show()
 
 
 if __name__ == "__main__":
-    img = readi("../../assets/images/letterA.jpg", "gray")
+    img = readi("../../assets/images/silouete.png", "gray")
     erode(img,5)
 

@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 
 """
     OPENING = ERODE + DILATE 
-    USEFUL WHEN YOU NEED TO REMOVE BLANK NOISE
+    USEFUL WHEN YOU NEED TO REMOVE WHITE NOISE
 """
 
 
@@ -27,5 +27,5 @@ def opening(img):
 
 
 if __name__ == "__main__":
-    img = readi("../../assets/images/letterA.jpg", "gray")
+    img = readi("../../assets/images/white_noise.jpg", "gray")
     opening(img)

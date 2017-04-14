@@ -48,8 +48,8 @@ def rotation(img, angle):
     return img_rot
 
 if (__name__=="__main__"):
-    img = cv2.imread("../assets/smile.jpg",0)
-    angle = 360
+    img = cv2.imread("../assets/images/hand.jpg",0)
+    angle = 72
     img_rotate = rotation(img, angle)
     cv2.imshow("Real Image", img)
     cv2.imshow("Rotate Image", img_rotate)

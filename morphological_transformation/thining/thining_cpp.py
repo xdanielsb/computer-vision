@@ -1,12 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-"""
-Created on Sun Mar  5 20:43:08 2017
-@author: jcamox
 
-Algoritmo Moforlógico de Adelgazamiento
-"""
-#Algoritmo Moforlógico de Adelgazamiento
 
 import math
 import numpy as np

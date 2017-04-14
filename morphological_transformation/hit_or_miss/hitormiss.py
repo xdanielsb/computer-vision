@@ -4,14 +4,21 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
+"""
+    Basic operation for detecting shapes
+"""
+
 def get_structure(name="rectangular"):
     # Rectangular Kernel
     if name == "rectangular":
-        return cv2.getStructuringElement(cv2.MORPH_RECT,(5,5))
+        print("1")
+        return cv2.getStructuringElement(cv2.MORPH_RECT,(3,3))
     if name == "elliptical":
-        return cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5))
+        print("2")
+        return cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(3,3))
     if name == "cross-shaped":
-        return cv2.getStructuringElement(cv2.MORPH_CROSS,(5,5))
+        print("3")
+        return cv2.getStructuringElement(cv2.MORPH_CROSS,(3,3))
     print ("write a valid name\n")
 
 """

@@ -21,6 +21,9 @@ def prewit(img):
     #Kernels
     ms = [N,S,E,O,SO,NO,SE,NE]
     
+    plt.subplot(3,3,1)
+    plt.imshow(img, cmap="gray")
+    plt.title('Original')
 
 
 

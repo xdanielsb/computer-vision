@@ -38,7 +38,7 @@ if __name__ == "__main__":
 
 
    
-    img = readi("../../assets/images/hand.jpg", "gray")
+    img = readi("../../assets/images/silouete.png", "gray")
     ret,img_bin = cv2.threshold(img,50,255, cv2.THRESH_BINARY_INV)
     #print_img(img_bin)"""
     
