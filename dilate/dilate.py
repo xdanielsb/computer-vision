@@ -3,7 +3,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 """
-    This script helps to find if there in difference between a kernel  of ones 3x3 and 5x5.
+    This scrip helps me to find the contour of an image based on the dilatation
 """
 
 if (__name__ =="__main__"):
@@ -21,21 +21,22 @@ if (__name__ =="__main__"):
     dilatation1 = cv2.dilate(img, kernel, iterations =1)
 
     kernel = np.ones((3,3), np.uint8)
-    dilatation2 = cv2.dilate(img, kernel, iterations =2)
+    dilatation2 = cv2.dilate(img, kernel, iterations =4)
 
     #plt.figure(1)
     
+    plt.subplot(1,4,1)
+    plt.imshow(img , cmap="gray")
 
-    plt.subplot(1,3,1)
+    plt.subplot(1,4,2)
     plt.imshow(dilatation1, cmap="gray")
 
-    plt.subplot(1,3,2)
+    plt.subplot(1,4,3)
     plt.imshow(dilatation2, cmap="gray")
 
     solucion  = dilatation1- dilatation2
     
-    print ("The max number in the array is: {} ".format(solucion.max()))
-    plt.subplot(1,3,3)
+    plt.subplot(1,4,4)
     plt.imshow(solucion, cmap="gray")
 
     plt.show()

@@ -43,7 +43,7 @@ def test1():
 def test2():
 
     #All the sample
-    data = load_data_set("../datasets/flowers.csv")
+    data = load_data_set("../flowers.csv")
     
     #The training set is going to be the 99 %
     training_set = get_training_set(0.99, data)
