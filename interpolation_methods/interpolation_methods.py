@@ -49,9 +49,9 @@ if (__name__== "__main__"):
         #factor 
         factor = 1.6
 
-        #test_bicubic(img, factor)
+        test_bicubic(img, factor)
         #test_bilinear(img, factor)
-        test_nearest_neighbors(img, factor)
+        #   test_nearest_neighbors(img, factor)
 
         print("---  The running time in seconds was: %s " % (time.time() - start_time))
         cv2.waitKey(0)
