@@ -18,13 +18,14 @@ def add(img2 , img1):
     img3 = cv2.resize(img2, (dimy,dimx))
 
     #cv2.addWeighted(src1, alpha, src2, beta, gamma[, dst[, dtype]])
+    #Awesome sum img5 = img1*0.2 + img3*0.3 + 0
     img5 = cv2.addWeighted(img1, 0.2, img3, 0.3,0)
 
+    #Normal sum
     img4 = cv2.add(img1,img3)
 
     plt.subplot(2,2,1), plt.imshow(img1, cmap="gray"), plt.title("Img 1")
     plt.subplot(2,2,2), plt.imshow(img2, cmap="gray"), plt.title("Img 2")
-
     plt.subplot(2,2,3), plt.imshow(img4, cmap="gray"), plt.title("Img 4")
     plt.subplot(2,2,4), plt.imshow(img5, cmap="gray"), plt.title("Img 5")
 
