@@ -1,7 +1,7 @@
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"
-#include <stdlib.h>
-#include <stdio.h>
+#include <bits/stdc++.h>
+#include <string>
 
 using namespace cv;
 
@@ -34,7 +34,7 @@ void CannyThreshold(int, void*){
 
 int main( int argc, char** argv ){
   /// Load an image
-  src = imread("../assets/hand.jpg");
+  src = imread("../assets/person.jpg");
 
   if( !src.data )
   { return -1; }
@@ -46,7 +46,7 @@ int main( int argc, char** argv ){
   cvtColor( src, src_gray, CV_BGR2GRAY );
 
   /// Create a window
-  namedWindow( window_name, CV_WINDOW_AUTOSIZE );
+  namedWindow( window_name, WINDOW_KEEPRATIO );
 
   /// Create a Trackbar for user to enter threshold
   createTrackbar( "Min Threshold:", window_name, &lowThreshold, max_lowThreshold, CannyThreshold );
