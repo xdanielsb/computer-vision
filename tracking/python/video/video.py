@@ -10,10 +10,16 @@ THRESH_VALUE = 20
 ACTUAL_IMAGE = None
 CROP = [(0,0),(0,0)]
 SIFT_IMG = None
+img_train = cv2.imread('0.png',0)
+kp1 = None
+des1 = None
+orb = None
+
 
 def nothing(x):
     pass
 
+ 
 def options():
     global FINISH
     global DEBUG
@@ -49,8 +55,36 @@ def options():
             name_image = str(NUM_IMAGE)+'.png' 
             cv2.imwrite(name_image ,ACTUAL_IMAGE)
             print("The image {} was saved.".format(name_image))
+            NUM_IMAGE  +=  1
 
 
+
+def drawMatches(matches, kp1, kp2):
+    global ACTUAL_IMAGE
+
+
+    # For each pair of points we have between both images
+    # draw circles, then connect a line between them
+    for mat in matches:
+
+        # Get the matching keypoints for each of the images
+        img1_idx = mat.queryIdx
+        img2_idx = mat.trainIdx
+
+        # x - columns
+        # y - rows
+        (x1,y1) = kp1[img1_idx].pt
+        (x2,y2) = kp2[img2_idx].pt
+        print("Detected point",x1,y1)
+
+        # Draw a small circle at both co-ordinates
+        # radius 4
+        # colour blue
+        # thickness = 1
+           
+        cv2.circle(ACTUAL_IMAGE, (int(x2),int(y2)), 4, (255,0,0 ), 1)   
+        #cv2.circle(out, (int(x2)+cols1,int(y2)), 4, (255, 0, 0), 1)
+        #print this is the code that   need theh e teh
 
 
 def click_and_crop(event, x, y, flags, param):
@@ -58,7 +92,10 @@ def click_and_crop(event, x, y, flags, param):
     global refPt, cropping
     global ACTUAL_IMAGE
     global CROP
-    
+    global img_train
+    global kp1
+    global des1
+    global orb
  
     # if the left mouse button was clicked, record the starting
     # (x, y) coordinates and indicate that cropping is being
@@ -74,7 +111,17 @@ def click_and_crop(event, x, y, flags, param):
         print(x,y)
         CROP[1] = (x,y)
         result = ACTUAL_IMAGE[CROP[0][1]:CROP[1][1], CROP[0][0]:CROP[1][0]]
+        CROP = [(0,0),(0,0)]
         cv2.imshow('CROP IMAGE', result)
+        
+        # trainImage
+        img_train = result
+        
+        # find the keypoints and descriptors with SIFT
+        kp1, des1 = orb.detectAndCompute(result,None)
+
+
+
 
 def video_capture():
 
@@ -85,9 +132,19 @@ def video_capture():
     global NUM_IMAGE
     global THRESH_VALUE
     global ACTUAL_IMAGE
+    global kp1
+    global des1
+    global orb
+    global img_train
 
     cap = cv2.VideoCapture(0)
-    sift = cv2.SIFT()
+    
+    # Initiate SIFT detector
+    orb = cv2.ORB()
+     
+    # create BFMatcher object
+    bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
+
     FIRST = True
 
     while(FINISH == False):
@@ -110,6 +167,9 @@ def video_capture():
             
             #Remove possible noise
             blur = cv2.blur(thresh1,(5,5))
+
+            #Read key points image 1
+            kp2, des2 = orb.detectAndCompute(ACTUAL_IMAGE,None)
 
             if(DEBUG):
                                 
@@ -136,6 +196,11 @@ def video_capture():
                 #DRAW ALL COUNTOURS IN THE IMAGE
                 cv2.drawContours(ACTUAL_IMAGE, contours, -1, (0,255,0), 3)
         
+            
+            matches = bf.match(des1,des2)
+            matches = sorted(matches, key = lambda x:x.distance)
+            drawMatches(matches, kp1, kp2)
+
 
 
             
