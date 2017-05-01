@@ -28,6 +28,12 @@ def time_show_image(time = 0):
 def close_windows():
     cv2.destroyAllWindows() 
 
+def rotate(img, angle):
+    rows,cols = img.shape
+    M = cv2.getRotationMatrix2D((cols/2,rows/2),angle,1)
+    dst = cv2.warpAffine(img,M,(cols,rows))
+    return dst
+    
 
 if __name__ == "__main__":
     
@@ -36,13 +42,10 @@ if __name__ == "__main__":
     
     img2 = readi("../assets/images/hand.jpg", "gray")
 
-    rows,cols = img2.shape
-
     angle = 30
-    M = cv2.getRotationMatrix2D((cols/2,rows/2),angle,1)
-    dst = cv2.warpAffine(img2,M,(cols,rows))
+    img_rotate = rotate(img2, angle)
     
-    cv2.imshow("Gray scale image", dst)
+    cv2.imshow("Rotated image", img_rotate)
 
     time_show_image()
     close_windows()
