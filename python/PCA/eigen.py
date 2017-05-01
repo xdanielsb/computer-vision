@@ -17,6 +17,7 @@ def read_matrix():
 
 def init():
     arr = read_matrix()
+    print(arr)
     cov = np.cov(arr.transpose())
 
     eigen_valor, eigen_vect = find_eigen(cov)
