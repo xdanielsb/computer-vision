@@ -28,8 +28,12 @@ def time_show_image(time = 0):
 def close_windows():
     cv2.destroyAllWindows() 
 
+
+"""
+    This code rotate an image 
+"""
 def rotate(img, angle):
-    rows,cols = img.shape
+    rows,cols = img.shape[0], img.shape[1]
     M = cv2.getRotationMatrix2D((cols/2,rows/2),angle,1)
     dst = cv2.warpAffine(img,M,(cols,rows))
     return dst
@@ -38,6 +42,7 @@ def rotate(img, angle):
 if __name__ == "__main__":
     
     img1 = readi("../assets/images/hand.jpg")
+    img1 = rotate(img1, 90)
     cv2.imshow("Color Image", img1)
     
     img2 = readi("../assets/images/hand.jpg", "gray")
