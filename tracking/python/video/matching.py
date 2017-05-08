@@ -2,8 +2,8 @@ import numpy as np
 import cv2
 from matplotlib import pyplot as plt
 
-img1 = cv2.imread('part2.png',0)          # queryImage
-img2 = cv2.imread('0.png',0)       # trainImage
+img1 = cv2.imread('whole.png',0)          # queryImage
+img2 = cv2.imread('part.png',0)       # trainImage
 
 
 
@@ -66,7 +66,5 @@ matches = sorted(matches, key = lambda x:x.distance)
 
 # Draw first 10 matches.
 img3 = drawMatches(img1,kp1,img2,kp2,matches)
-
-
 
 plt.imshow(img3),plt.show()

@@ -6,7 +6,7 @@ DEBUG = False
 TRACKING = False
 PAUSED = False
 NUM_IMAGE = 0
-THRESH_VALUE = 20
+THRESH_VALUE = 130
 ACTUAL_IMAGE = None
 CROP = [(0,0),(0,0)]
 SIFT_IMG = None
@@ -137,15 +137,21 @@ def video_capture():
     global orb
     global img_train
 
-    cap = cv2.VideoCapture(0)
+    
+    cap = cv2.VideoCapture(1)
     
     # Initiate SIFT detector
-    orb = cv2.ORB()
+    orb = cv2.SIFT()
      
     # create BFMatcher object
-    bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
+    bf = cv2.BFMatcher()
 
     FIRST = True
+
+    
+    img1 = cv2.imread('whole.png',0)
+    kp1, des1 = orb.detectAndCompute(img1,None)
+
 
     while(FINISH == False):
         # Capture frame-by-frame
