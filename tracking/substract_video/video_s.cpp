@@ -65,7 +65,7 @@ void Start() {
     //Custom Video
     // string arg ="/home/daniel/Videos/version2.mkv";
     //Camera
-    string arg ="0";
+    string arg ="1";
 
     VideoCapture capture(arg); //try to open string, this will attempt to open it as a video file or image sequence
 

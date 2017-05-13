@@ -82,7 +82,7 @@ def drawMatches(matches, kp1, kp2):
         # colour blue
         # thickness = 1
            
-        cv2.circle(ACTUAL_IMAGE, (int(x2),int(y2)), 4, (255,0,0 ), 1)   
+        cv2.circle(ACTUAL_IMAGE, (int(x2),int(y2)), 4, (255,0,0 ), 3)   
         #cv2.circle(out, (int(x2)+cols1,int(y2)), 4, (255, 0, 0), 1)
         #print this is the code that   need theh e teh
 
@@ -141,16 +141,22 @@ def video_capture():
     cap = cv2.VideoCapture(1)
     
     # Initiate SIFT detector
-    orb = cv2.SIFT()
-     
+    #orb = cv2.SIFT()
+
+    #Initiate ORB 
+    #orb = cv2.ORB()
+
+    #Initiate SURF
+    orb = cv2.SURF(400)
+
     # create BFMatcher object
     bf = cv2.BFMatcher()
 
     FIRST = True
 
     
-    img1 = cv2.imread('whole.png',0)
-    kp1, des1 = orb.detectAndCompute(img1,None)
+    #img1 = cv2.imread('whole.png',0)
+   # kp1, des1 = orb.detectAndCompute(img1,None)
 
 
     while(FINISH == False):
@@ -203,9 +209,19 @@ def video_capture():
                 cv2.drawContours(ACTUAL_IMAGE, contours, -1, (0,255,0), 3)
         
             
-            matches = bf.match(des1,des2)
-            matches = sorted(matches, key = lambda x:x.distance)
-            drawMatches(matches, kp1, kp2)
+            if(False): #Check this part
+                FLANN_INDEX_KDTREE = 1
+                index_params = dict(algorithm = FLANN_INDEX_KDTREE, trees = 5)
+                search_params = dict(checks=50)   # or pass empty dictionary
+                flann = cv2.FlannBasedMatcher(index_params,search_params)
+                matches = flann.knnMatch(des1,des2,k=2)
+                print (matches)
+                # cv2.drawMatchesKnn expects list of lists as matches.
+                img3 = cv2.drawMatchesKnn(ACTUAL_IMAGE,kp1,img_train,kp2,good,flags=2)
+            else:
+                matches = bf.match(des1,des2)
+                matches = sorted(matches, key = lambda x:x.distance)
+                drawMatches(matches, kp1, kp2)
 
 
 

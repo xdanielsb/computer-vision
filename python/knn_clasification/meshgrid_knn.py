@@ -53,7 +53,7 @@ def get_points_grid():
 
 if __name__ == "__main__":
     #Creat random points
-    points, responses, colours, colours_points = get_random_points(1000)
+    points, responses, colours, colours_points = get_random_points(10)
     
     #Create and train clasifier
     KNN_Classifier = cv2.KNearest()
