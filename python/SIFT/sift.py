@@ -1,11 +1,11 @@
 import cv2
 import numpy as np
 
-img = cv2.imread('../../tracking/python/video/0.png')
+img = cv2.imread('../../tracking/python/video/whole.png')
 
 
 #gray= cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-gray = cv2.imread('../../tracking/python/video/part2.png')
+gray = cv2.imread('../../tracking/python/video/part.png')
 sift = cv2.SIFT()
 kp = sift.detect(gray,None)
 img_s=cv2.drawKeypoints(gray,kp)
