@@ -1,15 +1,10 @@
-from  varibles import *
+from  variables import *
 import numpy as np
 import cv2
 
 
 def options():
-    global FINISH
-    global DEBUG
-    global TRACKING
-    global PAUSED
-    global NUM_IMAGE
-    global ACTUAL_IMAGE
+    global FINISH, DEBUG, TRACKING, PAUSED, NUM_IMAGE, ACTUAL_IMAGE
 
     key  = chr(cv2.waitKey(33) & 0xFF)
 
@@ -72,13 +67,7 @@ def drawMatches(matches, kp1, kp2):
 
 def click_and_crop(event, x, y, flags, param):
     # grab references to the global variables
-    global refPt, cropping
-    global ACTUAL_IMAGE
-    global CROP
-    global img_train
-    global kp1
-    global des1
-    global orb
+    global refPt, cropping, ACTUAL_IMAGE, CROP, img_train, kp1, des1, orb
 
     # if the left mouse button was clicked, record the starting
     # (x, y) coordinates and indicate that cropping is being
@@ -108,18 +97,7 @@ def click_and_crop(event, x, y, flags, param):
 
 def video_capture():
 
-    global FINISH
-    global DEBUG
-    global TRACKING
-    global PAUSED
-    global NUM_IMAGE
-    global THRESH_VALUE
-    global ACTUAL_IMAGE
-    global kp1
-    global des1
-    global orb
-    global img_train
-
+    global FINISH, DEBUG, TRACKING, PAUSED, NUM_IMAGE, THRESH_VALUE, ACTUAL_IMAGE, kp1, des1, orb, img_train
 
     cap = cv2.VideoCapture(1)
 
@@ -143,7 +121,6 @@ def video_capture():
 
 
     while(FINISH == False):
-        print (FINISH)
         # Capture frame-by-frame
         options()
         ret1, ACTUAL_IMAGE = cap.read()
@@ -180,7 +157,6 @@ def video_capture():
                 THRESH_VALUE = cv2.getTrackbarPos('THRESH_VALUE','threshold')
 
             else:
-                cv2.destroyWindow('gray')
                 cv2.destroyWindow('difference')
                 cv2.destroyWindow('threshold')
                 cv2.destroyWindow('blur')
