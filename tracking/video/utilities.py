@@ -1,2 +1,1 @@
-from variables import *
-import variables as var
+import cv2

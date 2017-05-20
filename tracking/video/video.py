@@ -1,5 +1,4 @@
 from variables import *
-# from utilities import drawMatches, click_and_crop
 import variables as var
 
 import numpy as np
@@ -9,61 +8,6 @@ import cv2
 def nothing(x):
     pass
 
-
-def drawMatches(matches, kp1, kp2):
-    global ACTUAL_IMAGE
-
-
-    # For each pair of points we have between both images
-    # draw circles, then connect a line between them
-    for mat in matches:
-
-        # Get the matching keypoints for each of the images
-        img1_idx = mat.queryIdx
-        img2_idx = mat.trainIdx
-
-        # x - columns
-        # y - rows
-        (x1,y1) = kp1[img1_idx].pt
-        (x2,y2) = kp2[img2_idx].pt
-        print("Detected point",x1,y1)
-
-        # Draw a small circle at both co-ordinates
-        # radius 4
-        # colour blue
-        # thickness = 1
-
-        cv2.circle(var.ACTUAL_IMAGE, (int(x2),int(y2)), 4, (255,0,0 ), 3)
-        #cv2.circle(out, (int(x2)+cols1,int(y2)), 4, (255, 0, 0), 1)
-        #print this is the code that   need theh e teh
-
-
-def click_and_crop(event, x, y, flags, param):
-    # grab references to the global variables
-    global refPt, cropping, ACTUAL_IMAGE, CROP, IMG_TRAIN, kp1, des1, orb
-
-    # if the left mouse button was clicked, record the starting
-    # (x, y) coordinates and indicate that cropping is being
-    # performed
-    if event == cv2.EVENT_LBUTTONDOWN:
-        print(x,y)
-        var.CROP[0] = (x,y)
-
-
-
-    # check to see if the left mouse button was released
-    elif event == cv2.EVENT_LBUTTONUP:
-        print(x,y)
-        var.CROP[1] = (x,y)
-        result = var.ACTUAL_IMAGE[var.CROP[0][1]:var.CROP[1][1], var.CROP[0][0]:var.CROP[1][0]]
-        var.CROP = [(0,0),(0,0)]
-        cv2.imshow('CROP IMAGE', result)
-
-        # trainImage
-        var.IMG_TRAIN = result
-
-        # find the keypoints and descriptors with SIFT
-        var.kp1, var.des1 = orb.detectAndCompute(result,None)
 
 def video_capture():
 
@@ -78,7 +22,7 @@ def video_capture():
     #orb = cv2.ORB()
 
     #Initiate SURF
-    orb = cv2.SURF(400)
+    var.orb = cv2.SURF(400)
 
     # create BFMatcher object
     bf = cv2.BFMatcher()
@@ -112,7 +56,7 @@ def video_capture():
             blur = cv2.blur(thresh1,(5,5))
 
             #Read key points image 1
-            kp2, des2 = orb.detectAndCompute(var.ACTUAL_IMAGE,None)
+            kp2, des2 = var.orb.detectAndCompute(var.ACTUAL_IMAGE,None)
 
             if(var.DEBUG):
 
