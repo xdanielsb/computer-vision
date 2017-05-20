@@ -10,7 +10,7 @@ ACTUAL_IMAGE = None
 CROP = [(0,0),(0,0)]
 SIFT_IMG = None
 IMG_TRAIN = None
-
+OPTION_MATCHER = "ORB"
 
 kp1 = None
 des1 = None
@@ -19,7 +19,7 @@ orb = None
 
 
 def options():
-    global FINISH, DEBUG, TRACKING, PAUSED, NUM_IMAGE, ACTUAL_IMAGE
+    global FINISH, DEBUG, TRACKING, PAUSED, NUM_IMAGE, ACTUAL_IMAGE, OPTION_MATCHER
 
     key  = chr(cv2.waitKey(33) & 0xFF)
 
@@ -49,6 +49,17 @@ def options():
             print("The image {} was saved.".format(name_image))
             NUM_IMAGE  +=  1
 
+        if(key == "c" or key  == "C"):
+            if OPTION_MATCHER == "ORB":
+                orb = cv2.SIFT()
+                print("The new method is SIFT")
+            elif OPTION_MATCHER == "SIFT":
+                orb = cv2.SURF(400)
+                print ("The new method is SURF")
+            else:
+                OPTION_MATCHER == "SURF"
+                orb = cv2.ORB()
+                print("The new method is ORB")
 
 
 def drawMatches(matches, kp1, kp2):
