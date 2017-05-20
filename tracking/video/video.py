@@ -1,38 +1,10 @@
-from  variables import *
+
+from variables import *
+import variables as var
+
 import numpy as np
 import cv2
 
-
-def options():
-    global FINISH, DEBUG, TRACKING, PAUSED, NUM_IMAGE, ACTUAL_IMAGE
-
-    key  = chr(cv2.waitKey(33) & 0xFF)
-
-    if (key != '\xff'):
-        if(key == "d" or key  == "D"):
-            DEBUG = not DEBUG
-            if(DEBUG): print("DEBUG ACTIVATED")
-            else: print("DEBUG DISACTIVATE")
-
-        if(key == "t" or key  == "T"):
-            TRACKING = not TRACKING
-            if(TRACKING): print("TRACKING ACTIVATED")
-            else: print("TRACKING DISACTIVATE")
-
-        if(key == "f" or key  == "F"):
-            FINISH  = not FINISH
-            if(FINISH): print("BYE BYE")
-
-        if(key == "p" or key  == "P"):
-            PAUSED = not PAUSED
-            if(PAUSED): print("THE PROGRAM IS PAUSED")
-            else: print("UNPAUSED")
-
-        if(key == "W" or key  == "w"):
-            name_image = str(NUM_IMAGE)+'.png'
-            cv2.imwrite(name_image ,ACTUAL_IMAGE)
-            print("The image {} was saved.".format(name_image))
-            NUM_IMAGE  +=  1
 
 def nothing(x):
     pass
@@ -120,7 +92,7 @@ def video_capture():
    # kp1, des1 = orb.detectAndCompute(img1,None)
 
 
-    while(FINISH == False):
+    while(var.FINISH == False):
         # Capture frame-by-frame
         options()
         ret1, ACTUAL_IMAGE = cap.read()
