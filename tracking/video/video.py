@@ -1,25 +1,8 @@
+from  varibles import *
 import numpy as np
 import cv2
 
-FINISH = False
-DEBUG = False
-TRACKING = False
-PAUSED = False
-NUM_IMAGE = 0
-THRESH_VALUE = 130
-ACTUAL_IMAGE = None
-CROP = [(0,0),(0,0)]
-SIFT_IMG = None
-img_train = cv2.imread('0.png',0)
-kp1 = None
-des1 = None
-orb = None
 
-
-def nothing(x):
-    pass
-
- 
 def options():
     global FINISH
     global DEBUG
@@ -33,31 +16,31 @@ def options():
     if (key != '\xff'):
         if(key == "d" or key  == "D"):
             DEBUG = not DEBUG
-            if(DEBUG): print("DEBUG ACTIVATED") 
+            if(DEBUG): print("DEBUG ACTIVATED")
             else: print("DEBUG DISACTIVATE")
-            
+
         if(key == "t" or key  == "T"):
             TRACKING = not TRACKING
-            if(TRACKING): print("TRACKING ACTIVATED") 
+            if(TRACKING): print("TRACKING ACTIVATED")
             else: print("TRACKING DISACTIVATE")
 
         if(key == "f" or key  == "F"):
             FINISH  = not FINISH
-            if(FINISH): print("BYE BYE") 
+            if(FINISH): print("BYE BYE")
 
         if(key == "p" or key  == "P"):
             PAUSED = not PAUSED
-            if(PAUSED): print("THE PROGRAM IS PAUSED") 
+            if(PAUSED): print("THE PROGRAM IS PAUSED")
             else: print("UNPAUSED")
-            
 
-        if(key == "W" or key  == "w"): 
-            name_image = str(NUM_IMAGE)+'.png' 
+        if(key == "W" or key  == "w"):
+            name_image = str(NUM_IMAGE)+'.png'
             cv2.imwrite(name_image ,ACTUAL_IMAGE)
             print("The image {} was saved.".format(name_image))
             NUM_IMAGE  +=  1
 
-
+def nothing(x):
+    pass
 
 def drawMatches(matches, kp1, kp2):
     global ACTUAL_IMAGE
@@ -81,8 +64,8 @@ def drawMatches(matches, kp1, kp2):
         # radius 4
         # colour blue
         # thickness = 1
-           
-        cv2.circle(ACTUAL_IMAGE, (int(x2),int(y2)), 4, (255,0,0 ), 3)   
+
+        cv2.circle(ACTUAL_IMAGE, (int(x2),int(y2)), 4, (255,0,0 ), 3)
         #cv2.circle(out, (int(x2)+cols1,int(y2)), 4, (255, 0, 0), 1)
         #print this is the code that   need theh e teh
 
@@ -96,7 +79,7 @@ def click_and_crop(event, x, y, flags, param):
     global kp1
     global des1
     global orb
- 
+
     # if the left mouse button was clicked, record the starting
     # (x, y) coordinates and indicate that cropping is being
     # performed
@@ -105,7 +88,7 @@ def click_and_crop(event, x, y, flags, param):
         CROP[0] = (x,y)
 
 
- 
+
     # check to see if the left mouse button was released
     elif event == cv2.EVENT_LBUTTONUP:
         print(x,y)
@@ -113,10 +96,10 @@ def click_and_crop(event, x, y, flags, param):
         result = ACTUAL_IMAGE[CROP[0][1]:CROP[1][1], CROP[0][0]:CROP[1][0]]
         CROP = [(0,0),(0,0)]
         cv2.imshow('CROP IMAGE', result)
-        
+
         # trainImage
         img_train = result
-        
+
         # find the keypoints and descriptors with SIFT
         kp1, des1 = orb.detectAndCompute(result,None)
 
@@ -137,13 +120,13 @@ def video_capture():
     global orb
     global img_train
 
-    
+
     cap = cv2.VideoCapture(1)
-    
+
     # Initiate SIFT detector
     #orb = cv2.SIFT()
 
-    #Initiate ORB 
+    #Initiate ORB
     #orb = cv2.ORB()
 
     #Initiate SURF
@@ -154,12 +137,13 @@ def video_capture():
 
     FIRST = True
 
-    
+
     #img1 = cv2.imread('whole.png',0)
    # kp1, des1 = orb.detectAndCompute(img1,None)
 
 
     while(FINISH == False):
+        print (FINISH)
         # Capture frame-by-frame
         options()
         ret1, ACTUAL_IMAGE = cap.read()
@@ -173,10 +157,10 @@ def video_capture():
 
             #Compute the difference between the images
             difference = cv2.absdiff(frame2, frame1)
-            
+
             #Threshold the image
             ret,thresh1 = cv2.threshold(difference,THRESH_VALUE,255,cv2.THRESH_BINARY)
-            
+
             #Remove possible noise
             blur = cv2.blur(thresh1,(5,5))
 
@@ -184,15 +168,15 @@ def video_capture():
             kp2, des2 = orb.detectAndCompute(ACTUAL_IMAGE,None)
 
             if(DEBUG):
-                                
+
                 cv2.imshow('difference', difference)
                 cv2.imshow('threshold', thresh1)
                 cv2.imshow('blur', blur)
-                
+
                 if(FIRST):
                     cv2.createTrackbar('THRESH_VALUE','threshold',THRESH_VALUE,255,nothing)
                     FIRST = False
-                
+
                 THRESH_VALUE = cv2.getTrackbarPos('THRESH_VALUE','threshold')
 
             else:
@@ -207,8 +191,8 @@ def video_capture():
                 contours, hierarchy = cv2.findContours(blur, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
                 #DRAW ALL COUNTOURS IN THE IMAGE
                 cv2.drawContours(ACTUAL_IMAGE, contours, -1, (0,255,0), 3)
-        
-            
+
+
             if(False): #Check this part
                 FLANN_INDEX_KDTREE = 1
                 index_params = dict(algorithm = FLANN_INDEX_KDTREE, trees = 5)
@@ -225,7 +209,7 @@ def video_capture():
 
 
 
-            
+
             #Show the image
             cv2.setMouseCallback("VIDEO", click_and_crop)
             cv2.rectangle(ACTUAL_IMAGE, CROP[0], CROP[1], (0, 255, 0), 2)

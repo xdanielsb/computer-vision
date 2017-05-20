@@ -1,0 +1,13 @@
+FINISH = False
+DEBUG = False
+TRACKING = False
+PAUSED = False
+NUM_IMAGE = 0
+THRESH_VALUE = 130
+ACTUAL_IMAGE = None
+CROP = [(0,0),(0,0)]
+SIFT_IMG = None
+img_train = None
+kp1 = None
+des1 = None
+orb = None
