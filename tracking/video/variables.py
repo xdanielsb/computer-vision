@@ -10,9 +10,12 @@ ACTUAL_IMAGE = None
 CROP = [(0,0),(0,0)]
 SIFT_IMG = None
 IMG_TRAIN = None
+
+
 kp1 = None
 des1 = None
 orb = None
+
 
 
 def options():
@@ -60,20 +63,12 @@ def drawMatches(matches, kp1, kp2):
         img1_idx = mat.queryIdx
         img2_idx = mat.trainIdx
 
-        # x - columns
-        # y - rows
         (x1,y1) = kp1[img1_idx].pt
         (x2,y2) = kp2[img2_idx].pt
         print("Detected point",x1,y1)
 
-        # Draw a small circle at both co-ordinates
-        # radius 4
-        # colour blue
-        # thickness = 1
-
         cv2.circle(ACTUAL_IMAGE, (int(x2),int(y2)), 4, (255,0,0 ), 3)
-        #cv2.circle(out, (int(x2)+cols1,int(y2)), 4, (255, 0, 0), 1)
-        #print this is the code that   need theh e teh
+
 
 
 def click_and_crop(event, x, y, flags, param):

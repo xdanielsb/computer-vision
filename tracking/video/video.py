@@ -30,7 +30,6 @@ def video_capture():
     FIRST = True
 
 
-    #img1 = cv2.imread('whole.png',0)
    # kp1, des1 = orb.detectAndCompute(img1,None)
 
 
@@ -59,20 +58,15 @@ def video_capture():
             kp2, des2 = var.orb.detectAndCompute(var.ACTUAL_IMAGE,None)
 
             if(var.DEBUG):
-
-                cv2.imshow('difference', difference)
-                cv2.imshow('threshold', thresh1)
                 cv2.imshow('blur', blur)
 
                 if(FIRST):
-                    cv2.createTrackbar('THRESH_VALUE','threshold',THRESH_VALUE,255,nothing)
+                    cv2.createTrackbar('THRESH_VALUE','blur',THRESH_VALUE,255,nothing)
                     FIRST = False
 
-                THRESH_VALUE = cv2.getTrackbarPos('THRESH_VALUE','threshold')
+                THRESH_VALUE = cv2.getTrackbarPos('THRESH_VALUE','blur')
 
             else:
-                cv2.destroyWindow('difference')
-                cv2.destroyWindow('threshold')
                 cv2.destroyWindow('blur')
                 FIRST = True
 
