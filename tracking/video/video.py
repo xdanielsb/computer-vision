@@ -11,20 +11,25 @@ def nothing(x):
 
 def video_capture():
 
-    global FINISH, DEBUG, TRACKING, PAUSED, NUM_IMAGE, THRESH_VALUE, ACTUAL_IMAGE, kp1, des1, orb, IMG_TRAIN
+    global FINISH, DEBUG, TRACKING, PAUSED, NUM_IMAGE, THRESH_VALUE, ACTUAL_IMAGE, kp1, des1, orb, IMG_TRAIN, OPTION_MATCHER
 
+    var.OPTION_MATCHER = "SIFT"
     cap = cv2.VideoCapture(1)
 
-    # Initiate SIFT detector
-    #orb = cv2.SIFT()
+    if var.OPTION_MATCHER == "ORB":
+        var.orb = cv2.ORB()
+        var.OPTION_MATCHER = "ORB"
 
-    #Initiate ORB
-    #orb = cv2.ORB()
+    elif var.OPTION_MATCHER == "SIFT":
+        var.orb = cv2.SIFT()
+        var.OPTION_MATCHER = "SIFT"
 
-    #Initiate SURF
-    var.orb = cv2.SURF(400)
+    else:
+        var.orb = cv2.SURF(400)
+        var.OPTION_MATCHER = "SURF"
+    print("The option matcher is: "+ var.OPTION_MATCHER)
 
-    # create BFMatcher object
+
     bf = cv2.BFMatcher()
 
     FIRST = True

@@ -10,8 +10,9 @@ ACTUAL_IMAGE = None
 CROP = [(0,0),(0,0)]
 SIFT_IMG = None
 IMG_TRAIN = None
-OPTION_MATCHER = "ORB"
+OPTION_MATCHER = None
 
+COLOR = (184, 62, 54)
 kp1 = None
 des1 = None
 orb = None
@@ -19,7 +20,7 @@ orb = None
 
 
 def options():
-    global FINISH, DEBUG, TRACKING, PAUSED, NUM_IMAGE, ACTUAL_IMAGE, OPTION_MATCHER
+    global FINISH, DEBUG, TRACKING, PAUSED, NUM_IMAGE, ACTUAL_IMAGE, OPTION_MATCHER, COLOR, orb, IMG_TRAIN, des1, kp1
 
     key  = chr(cv2.waitKey(33) & 0xFF)
 
@@ -52,18 +53,26 @@ def options():
         if(key == "c" or key  == "C"):
             if OPTION_MATCHER == "ORB":
                 orb = cv2.SIFT()
+                OPTION_MATCHER = "SIFT"
                 print("The new method is SIFT")
+                COLOR = (207, 158, 54)
+
             elif OPTION_MATCHER == "SIFT":
                 orb = cv2.SURF(400)
                 print ("The new method is SURF")
+                OPTION_MATCHER = "SURF"
+                COLOR = (5, 201, 182)
             else:
                 OPTION_MATCHER == "SURF"
                 orb = cv2.ORB()
                 print("The new method is ORB")
+                OPTION_MATCHER = "ORB"
+                COLOR = (184, 62, 54)
+            kp1, des1 = orb.detectAndCompute(IMG_TRAIN,None)
 
 
 def drawMatches(matches, kp1, kp2):
-    global ACTUAL_IMAGE
+    global ACTUAL_IMAGE, COLOR
 
 
     # For each pair of points we have between both images
@@ -76,9 +85,9 @@ def drawMatches(matches, kp1, kp2):
 
         (x1,y1) = kp1[img1_idx].pt
         (x2,y2) = kp2[img2_idx].pt
-        print("Detected point",x1,y1)
+        # print("Detected point",x1,y1)
 
-        cv2.circle(ACTUAL_IMAGE, (int(x2),int(y2)), 4, (255,0,0 ), 3)
+        cv2.circle(ACTUAL_IMAGE, (int(x2),int(y2)), 4, COLOR, 3)
 
 
 
@@ -97,7 +106,7 @@ def click_and_crop(event, x, y, flags, param):
 
     # check to see if the left mouse button was released
     elif event == cv2.EVENT_LBUTTONUP:
-        print(x,y)
+        # print(x,y)
         CROP[1] = (x,y)
         result = ACTUAL_IMAGE[CROP[0][1]:CROP[1][1], CROP[0][0]:CROP[1][0]]
         CROP = [(0,0),(0,0)]
@@ -107,4 +116,4 @@ def click_and_crop(event, x, y, flags, param):
         IMG_TRAIN = result
 
         # find the keypoints and descriptors with SIFT
-        kp1, des1 = orb.detectAndCompute(result,None)
+        kp1, des1 = orb.detectAndCompute(IMG_TRAIN,None)
