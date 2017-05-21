@@ -2,14 +2,12 @@
 #Just a dirty trick
 from variables import *
 import variables as var
-
-from utilities import to_gray
-
-
-
+from utilities import *
 import numpy as np
 import cv2
 
+#Auxiliar variable to help me to intance once
+FIRST = True
 
 def nothing(x):
     pass
@@ -31,6 +29,19 @@ def choose_matcher():
     print("The option matcher is: "+ var.OPTION_MATCHER)
 
 
+def debug():
+    global  DEBUG, THRESH_VALUE
+    if(var.DEBUG):
+        cv2.imshow('blur', blur)
+        if(FIRST):
+            cv2.createTrackbar('THRESH_VALUE','blur',var.THRESH_VALUE,255,nothing)
+            FIRST = False
+        var.THRESH_VALUE = cv2.getTrackbarPos('THRESH_VALUE','blur')
+    else:
+        cv2.destroyWindow('blur')
+        FIRST = True
+
+
 def video_capture():
 
     global FINISH, DEBUG, TRACKING, PAUSED, NUM_IMAGE, THRESH_VALUE, ACTUAL_IMAGE, kp1, des1, orb, IMG_TRAIN, OPTION_MATCHER
@@ -42,7 +53,6 @@ def video_capture():
     #Instance the matcher
     bf = cv2.BFMatcher()
 
-    FIRST = True #Auxiliar variable to help me to intance once
 
     while(var.FINISH == False):
         #Call the key listener for options
@@ -61,10 +71,10 @@ def video_capture():
             difference = cv2.absdiff(frame2, frame1)
 
             #Threshold the image
-            ret,thresh1 = cv2.threshold(difference,THRESH_VALUE,255,cv2.THRESH_BINARY)
+            _,thr = threshold_bin(difference, var.THRESH_VALUE)
 
             #Remove possible noise
-            blur = cv2.blur(thresh1,(5,5))
+            blur = blur_(thr)
 
             #Read key points image 1
             kp2, des2 = var.orb.detectAndCompute(var.ACTUAL_IMAGE,None)
@@ -72,9 +82,9 @@ def video_capture():
             if(var.DEBUG):
                 cv2.imshow('blur', blur)
                 if(FIRST):
-                    cv2.createTrackbar('THRESH_VALUE','blur',THRESH_VALUE,255,nothing)
+                    cv2.createTrackbar('THRESH_VALUE','blur',var.THRESH_VALUE,255,nothing)
                     FIRST = False
-                THRESH_VALUE = cv2.getTrackbarPos('THRESH_VALUE','blur')
+                var.THRESH_VALUE = cv2.getTrackbarPos('THRESH_VALUE','blur')
             else:
                 cv2.destroyWindow('blur')
                 FIRST = True
