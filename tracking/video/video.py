@@ -29,8 +29,8 @@ def choose_matcher():
     print("The option matcher is: "+ var.OPTION_MATCHER)
 
 
-def debug():
-    global  DEBUG, THRESH_VALUE
+def debug(blur):
+    global  DEBUG, THRESH_VALUE, FIRST
     if(var.DEBUG):
         cv2.imshow('blur', blur)
         if(FIRST):
@@ -79,15 +79,8 @@ def video_capture():
             #Read key points image 1
             kp2, des2 = var.orb.detectAndCompute(var.ACTUAL_IMAGE,None)
 
-            if(var.DEBUG):
-                cv2.imshow('blur', blur)
-                if(FIRST):
-                    cv2.createTrackbar('THRESH_VALUE','blur',var.THRESH_VALUE,255,nothing)
-                    FIRST = False
-                var.THRESH_VALUE = cv2.getTrackbarPos('THRESH_VALUE','blur')
-            else:
-                cv2.destroyWindow('blur')
-                FIRST = True
+            #Call debug options
+            debug(blur)
 
 
             if(var.TRACKING):
