@@ -1,4 +1,3 @@
-
 #Just a dirty trick
 from variables import *
 import variables as var
@@ -42,6 +41,35 @@ def debug(blur):
         FIRST = True
 
 
+def tracking(blur):
+    global TRACKING, ACTUAL_IMAGE
+    if(var.TRACKING):
+        contours, hierarchy = cv2.findContours(blur, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        #DRAW ALL COUNTOURS IN THE IMAGE
+        cv2.drawContours(var.ACTUAL_IMAGE, contours, -1, (0,255,0), 3)
+
+
+def apply_matcher(bf, des2, kp2):
+    global des1, kp1, ACTUAL_IMAGE, img_train
+
+    if(False): #Check this part
+        FLANN_INDEX_KDTREE = 1
+        index_params = dict(algorithm = FLANN_INDEX_KDTREE, trees = 5)
+        search_params = dict(checks=50)   # or pass empty dictionary
+        flann = cv2.FlannBasedMatcher(index_params,search_params)
+        matches = flann.knnMatch(var.des1,des2,k=2)
+        print (matches)
+        # cv2.drawMatchesKnn expects list of lists as matches.
+        img3 = cv2.drawMatchesKnn(var.ACTUAL_IMAGE,var.kp1,var.img_train,kp2,good,flags=2)
+
+
+    else:
+        matches = bf.match(var.des1,des2)
+        matches = sorted(matches, key = lambda x:x.distance)
+        drawMatches(matches, var.kp1, kp2)
+
+
+
 def video_capture():
 
     global FINISH, DEBUG, TRACKING, PAUSED, NUM_IMAGE, THRESH_VALUE, ACTUAL_IMAGE, kp1, des1, orb, IMG_TRAIN, OPTION_MATCHER
@@ -82,33 +110,18 @@ def video_capture():
             #Call debug options
             debug(blur)
 
+            #Call tracking movement
+            tracking(blur)
 
-            if(var.TRACKING):
-                contours, hierarchy = cv2.findContours(blur, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-                #DRAW ALL COUNTOURS IN THE IMAGE
-                cv2.drawContours(var.ACTUAL_IMAGE, contours, -1, (0,255,0), 3)
-
-
-            if(False): #Check this part
-                FLANN_INDEX_KDTREE = 1
-                index_params = dict(algorithm = FLANN_INDEX_KDTREE, trees = 5)
-                search_params = dict(checks=50)   # or pass empty dictionary
-                flann = cv2.FlannBasedMatcher(index_params,search_params)
-                matches = flann.knnMatch(des1,des2,k=2)
-                print (matches)
-                # cv2.drawMatchesKnn expects list of lists as matches.
-                img3 = cv2.drawMatchesKnn(ACTUAL_IMAGE,kp1,img_train,kp2,good,flags=2)
-
-
-            else:
-                matches = bf.match(var.des1,des2)
-                matches = sorted(matches, key = lambda x:x.distance)
-                drawMatches(matches, var.kp1, kp2)
-
+            #Apply matcher in order to match features
+            apply_matcher(bf, des2, kp2)
 
             #Show the image
             cv2.setMouseCallback("VIDEO", click_and_crop)
-            cv2.rectangle(var.ACTUAL_IMAGE, CROP[0], CROP[1], (0, 255, 0), 2)
+
+            if(var.CROP[0] != (0,0)):
+                cv2.rectangle(var.ACTUAL_IMAGE, var.CROP[0], var.CROP[1], (0, 255, 0), 2)
+
             cv2.imshow("VIDEO", var.ACTUAL_IMAGE)
 
     # When everything done, release the capture

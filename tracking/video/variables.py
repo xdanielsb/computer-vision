@@ -104,13 +104,18 @@ def click_and_crop(event, x, y, flags, param):
         print(x,y)
         CROP[0] = (x,y)
 
+    if event == cv2.EVENT_MOUSEMOVE:
+        if(CROP[0] != (0,0)):
+            CROP[1] = (x,y)
+            #cv2.rectangle(ACTUAL_IMAGE, CROP[0], CROP[1], (0, 255, 0), 2)
+
 
 
     # check to see if the left mouse button was released
     elif event == cv2.EVENT_LBUTTONUP:
-        # print(x,y)
-        CROP[1] = (x,y)
+
         result = ACTUAL_IMAGE[CROP[0][1]:CROP[1][1], CROP[0][0]:CROP[1][0]]
+
         CROP = [(0,0),(0,0)]
         cv2.imshow('CROP IMAGE', result)
 
