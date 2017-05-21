@@ -1,5 +1,11 @@
+
+#Just a dirty trick
 from variables import *
 import variables as var
+
+from utilities import to_gray
+
+
 
 import numpy as np
 import cv2
@@ -46,10 +52,10 @@ def video_capture():
 
 
         if(var.PAUSED == False):
-            ret1, var.ACTUAL_IMAGE = cap.read()
-            frame1 = cv2.cvtColor(var.ACTUAL_IMAGE, cv2.COLOR_BGR2GRAY)
-            ret2, frame2 = cap.read()
-            frame2 = cv2.cvtColor(frame2, cv2.COLOR_BGR2GRAY)
+            _, var.ACTUAL_IMAGE = cap.read()
+            frame1 = to_gray(var.ACTUAL_IMAGE)
+            _, frame2 = cap.read()
+            frame2 = to_gray(frame2)
 
             #Compute the difference between the images
             difference = cv2.absdiff(frame2, frame1)
@@ -65,13 +71,10 @@ def video_capture():
 
             if(var.DEBUG):
                 cv2.imshow('blur', blur)
-
                 if(FIRST):
                     cv2.createTrackbar('THRESH_VALUE','blur',THRESH_VALUE,255,nothing)
                     FIRST = False
-
                 THRESH_VALUE = cv2.getTrackbarPos('THRESH_VALUE','blur')
-
             else:
                 cv2.destroyWindow('blur')
                 FIRST = True
