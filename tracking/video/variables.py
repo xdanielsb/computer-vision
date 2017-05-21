@@ -68,6 +68,8 @@ def options():
                 print("The new method is ORB")
                 OPTION_MATCHER = "ORB"
                 COLOR = (184, 62, 54)
+            #Ensure that in the moment of the match the kps and des has the same
+            #type of data
             kp1, des1 = orb.detectAndCompute(IMG_TRAIN,None)
 
 

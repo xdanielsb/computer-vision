@@ -9,12 +9,8 @@ def nothing(x):
     pass
 
 
-def video_capture():
-
-    global FINISH, DEBUG, TRACKING, PAUSED, NUM_IMAGE, THRESH_VALUE, ACTUAL_IMAGE, kp1, des1, orb, IMG_TRAIN, OPTION_MATCHER
-
+def choose_matcher():
     var.OPTION_MATCHER = "SIFT"
-    cap = cv2.VideoCapture(1)
 
     if var.OPTION_MATCHER == "ORB":
         var.orb = cv2.ORB()
@@ -23,24 +19,29 @@ def video_capture():
     elif var.OPTION_MATCHER == "SIFT":
         var.orb = cv2.SIFT()
         var.OPTION_MATCHER = "SIFT"
-
     else:
         var.orb = cv2.SURF(400)
         var.OPTION_MATCHER = "SURF"
     print("The option matcher is: "+ var.OPTION_MATCHER)
 
 
+def video_capture():
+
+    global FINISH, DEBUG, TRACKING, PAUSED, NUM_IMAGE, THRESH_VALUE, ACTUAL_IMAGE, kp1, des1, orb, IMG_TRAIN, OPTION_MATCHER
+
+    #Create the instance of the video
+    cap = cv2.VideoCapture(0)
+    #Choose the method to match
+    choose_matcher()
+    #Instance the matcher
     bf = cv2.BFMatcher()
 
-    FIRST = True
-
-
-   # kp1, des1 = orb.detectAndCompute(img1,None)
-
+    FIRST = True #Auxiliar variable to help me to intance once
 
     while(var.FINISH == False):
-        # Capture frame-by-frame
+        #Call the key listener for options
         var.options()
+        # Capture frame-by-frame
         ret1, var.ACTUAL_IMAGE = cap.read()
 
 
@@ -107,6 +108,3 @@ def video_capture():
     # When everything done, release the capture
     cap.release()
     cv2.destroyAllWindows()
-
-
-video_capture()

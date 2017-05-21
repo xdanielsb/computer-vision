@@ -31,6 +31,8 @@ def threshold(img):
     plt.show()
 
 if __name__  == "__main__":
-    img = readi("../../assets/images/smile.png", "gray")
+    url = "/home/daniel/Documents/myProjects/ExamChecker/assets/images/10.jpeg"
+    url2 = "../../assets/images/smile.jpg"
+    img = readi(url2, "gray")
     threshold(img)
 
