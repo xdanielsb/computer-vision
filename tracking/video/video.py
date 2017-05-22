@@ -2,6 +2,8 @@
 from variables import *
 import variables as var
 from utilities import *
+from useful_functions import get_hu_moments
+
 import numpy as np
 import cv2
 
@@ -75,7 +77,7 @@ def video_capture():
     global FINISH, DEBUG, TRACKING, PAUSED, NUM_IMAGE, THRESH_VALUE, ACTUAL_IMAGE, kp1, des1, orb, IMG_TRAIN, OPTION_MATCHER
 
     #Create the instance of the video
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(1)
     #Choose the method to match
     choose_matcher()
     #Instance the matcher
