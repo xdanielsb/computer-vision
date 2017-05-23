@@ -69,7 +69,15 @@ def apply_matcher(bf, des2, kp2):
     else:
         matches = bf.match(var.des1,des2)
         matches = sorted(matches, key = lambda x:x.distance)
-        drawMatches(matches, var.kp1, kp2)
+        #print("Number of matches: {}".format(len(matches)))
+        if len(matches) < 10:
+            best_matches = matches
+        else:
+            best_matches = matches[0:len(matches)/5]
+        points = drawMatches(best_matches, var.kp1, kp2)
+        if len(points)>0:
+            hull = get_convex_hull(points)
+            print("hull",hull)
 
 
 

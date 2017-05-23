@@ -1,4 +1,5 @@
 import cv2
+import numpy as np
 
 FINISH = False
 DEBUG = False
@@ -76,7 +77,7 @@ def options():
 def drawMatches(matches, kp1, kp2):
     global ACTUAL_IMAGE, COLOR
 
-
+    points = []
     # For each pair of points we have between both images
     # draw circles, then connect a line between them
     for mat in matches:
@@ -87,11 +88,13 @@ def drawMatches(matches, kp1, kp2):
 
         (x1,y1) = kp1[img1_idx].pt
         (x2,y2) = kp2[img2_idx].pt
-        
+        points.append([x2,y2])
+
         # print("Detected point",x1,y1)
 
         cv2.circle(ACTUAL_IMAGE, (int(x2),int(y2)), 4, COLOR, 3)
 
+    return np.array(points, dtype=np.float32)
 
 
 def click_and_crop(event, x, y, flags, param):
