@@ -58,6 +58,9 @@ def find_matches(bf, des1, des2, kp1 , kp2, color):
     if len(points)>0:
         hull = get_convex_hull(points)
         draw_convex_hull(var.ACTUAL_IMAGE, hull)
+        return hull
+
+    return []
 
 
 def video_capture():
@@ -96,21 +99,28 @@ def video_capture():
             #Remove possible noise
             blur = blur_(thr)
 
+            convex = []
             #Read key points image 1
             if var.ACTIVE_ORB:
                 kp_orb2, des_orb2 = var.orb.detectAndCompute(var.ACTUAL_IMAGE,None)
-                find_matches(bf, var.des_orb, des_orb2, var.kp_orb, kp_orb2, (237, 241, 20))
+                h1 = find_matches(bf, var.des_orb, des_orb2, var.kp_orb, kp_orb2, (237, 241, 20))
+                if h1 != []:
+                    convex.append(h1)
 
             if var.ACTIVE_SURF:
                 kp_surf2, des_surf2 = var.surf.detectAndCompute(var.ACTUAL_IMAGE,None)
-                find_matches(bf, var.des_surf, des_surf2, var.kp_surf, kp_surf2, (33, 218, 215))
+                h2 = find_matches(bf, var.des_surf, des_surf2, var.kp_surf, kp_surf2, (33, 218, 215))
+                if h2 != []:
+                    convex.append(h2)
 
 
             if var.ACTIVE_SIFT:
                 kp_sift2, des_sift2 = var.sift.detectAndCompute(var.ACTUAL_IMAGE,None)
-                find_matches(bf, var.des_sift, des_sift2, var.kp_sift, kp_sift2, (252, 89, 9))
+                h3 = find_matches(bf, var.des_sift, des_sift2, var.kp_sift, kp_sift2, (252, 89, 9))
+                if h3 != []:
+                    convex.append(h3)
 
-
+            #print("Num of convex: {}".format( len(convex)))
 
             #Call debug options
             debug(blur)
