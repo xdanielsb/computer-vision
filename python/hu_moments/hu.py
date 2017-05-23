@@ -37,8 +37,9 @@ if __name__ == "__main__":
     img = readi("../assets/images/hand.jpg", "gray")
     _, thr= cv2.threshold(img,127,255,cv2.THRESH_BINARY)
     cv2.imshow("Thershold", thr)
-    res = cv2.HuMoments(cv2.moments(thr)).flatten()
-    print (res)
+    res = cv2.HuMoments(cv2.moments(thr))
+    print(res)
+    print (res.flatten())
 
     
     time_show_image()

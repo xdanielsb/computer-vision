@@ -53,14 +53,24 @@ def find_matches(bf, des1, des2, kp1 , kp2, color):
     if len(matches) < 10:
         best_matches = matches
     else:
-        best_matches = matches[0:len(matches)/5]
+        best_matches = matches[0:10]
+
     points = drawMatches(best_matches, kp1, kp2, color)
     if len(points)>0:
         hull = get_convex_hull(points)
-        draw_convex_hull(var.ACTUAL_IMAGE, hull)
+        draw_convex_hull(var.ACTUAL_IMAGE, hull, color)
         return hull
 
     return []
+
+def find_intersections_convex(convex):
+    dim = var.ACTUAL_IMAGE.shape[0:2]
+    blank = np.zeros( dim)
+
+    news = []
+    for c in convex:
+        aux = drawContours( blank.copy(), c, 0, 1 )
+        news.append(aux)
 
 
 def video_capture():
@@ -103,18 +113,21 @@ def video_capture():
             #Read key points image 1
             if var.ACTIVE_ORB:
                 kp_orb2, des_orb2 = var.orb.detectAndCompute(var.ACTUAL_IMAGE,None)
-                h1 = find_matches(bf, var.des_orb, des_orb2, var.kp_orb, kp_orb2, (237, 241, 20))
+                # rgb(20, 69, 241)
+                h1 = find_matches(bf, var.des_orb, des_orb2, var.kp_orb, kp_orb2, (20, 69, 241))
                 if h1 != []:
                     convex.append(h1)
 
             if var.ACTIVE_SURF:
                 kp_surf2, des_surf2 = var.surf.detectAndCompute(var.ACTUAL_IMAGE,None)
-                h2 = find_matches(bf, var.des_surf, des_surf2, var.kp_surf, kp_surf2, (33, 218, 215))
+                # rgb(9, 73, 6)
+                h2 = find_matches(bf, var.des_surf, des_surf2, var.kp_surf, kp_surf2, (9, 73, 6))
                 if h2 != []:
                     convex.append(h2)
 
 
             if var.ACTIVE_SIFT:
+                # rgb(252, 89, 9)
                 kp_sift2, des_sift2 = var.sift.detectAndCompute(var.ACTUAL_IMAGE,None)
                 h3 = find_matches(bf, var.des_sift, des_sift2, var.kp_sift, kp_sift2, (252, 89, 9))
                 if h3 != []:

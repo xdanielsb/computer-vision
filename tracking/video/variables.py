@@ -89,7 +89,7 @@ def options():
 
 
 
-def drawMatches(matches, kp1, kp2, COLOR):
+def drawMatches(matches, kp1, kp2, c):
     global ACTUAL_IMAGE
 
     points = []
@@ -107,7 +107,7 @@ def drawMatches(matches, kp1, kp2, COLOR):
 
         # print("Detected point",x1,y1)
 
-        cv2.circle(ACTUAL_IMAGE, (int(x2),int(y2)), 4, COLOR, 3)
+        cv2.circle(ACTUAL_IMAGE, (int(x2),int(y2)), 4, c, 3)
 
     return np.array(points, dtype=np.float32)
 
