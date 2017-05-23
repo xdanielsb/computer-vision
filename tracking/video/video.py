@@ -2,7 +2,7 @@
 from variables import *
 import variables as var
 from utilities import *
-from useful_functions import get_hu_moments
+from useful_functions import *
 
 import numpy as np
 import cv2
@@ -46,10 +46,10 @@ def debug(blur):
 def tracking(blur):
     global TRACKING, ACTUAL_IMAGE
     if(var.TRACKING):
-        contours, hierarchy = cv2.findContours(blur, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        contours = find_contours(blur)
         #DRAW ALL COUNTOURS IN THE IMAGE
-        print(contours)
-        cv2.drawContours(var.ACTUAL_IMAGE, contours, -1, (0,255,0), 3)
+        #print(contours)
+        var.ACTUAL_IMAGE = draw_contours(var.ACTUAL_IMAGE, contours)
 
 
 def apply_matcher(bf, des2, kp2):

@@ -87,6 +87,7 @@ def drawMatches(matches, kp1, kp2):
 
         (x1,y1) = kp1[img1_idx].pt
         (x2,y2) = kp2[img2_idx].pt
+        
         # print("Detected point",x1,y1)
 
         cv2.circle(ACTUAL_IMAGE, (int(x2),int(y2)), 4, COLOR, 3)
@@ -101,7 +102,7 @@ def click_and_crop(event, x, y, flags, param):
     # (x, y) coordinates and indicate that cropping is being
     # performed
     if event == cv2.EVENT_LBUTTONDOWN:
-        print(x,y)
+        #print(x,y)
         CROP[0] = (x,y)
 
     if event == cv2.EVENT_MOUSEMOVE:
