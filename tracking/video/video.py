@@ -46,15 +46,15 @@ def tracking(blur):
         var.ACTUAL_IMAGE = draw_contours(var.ACTUAL_IMAGE, contours)
 
 
-def find_matches(bf, des1, des2, kp1 , kp2):
+def find_matches(bf, des1, des2, kp1 , kp2, color):
     matches = bf.match(des1,des2)
     matches = sorted(matches, key = lambda x:x.distance)
-    print("Number of matches: {}".format(len(matches)))
+    #print("Number of matches: {}".format(len(matches)))
     if len(matches) < 10:
         best_matches = matches
     else:
         best_matches = matches[0:len(matches)/5]
-    points = drawMatches(best_matches, kp1, kp2)
+    points = drawMatches(best_matches, kp1, kp2, color)
     if len(points)>0:
         hull = get_convex_hull(points)
         draw_convex_hull(var.ACTUAL_IMAGE, hull)
@@ -97,18 +97,18 @@ def video_capture():
             blur = blur_(thr)
 
             #Read key points image 1
-            if ACTIVE_ORB:
+            if var.ACTIVE_ORB:
                 kp_orb2, des_orb2 = var.orb.detectAndCompute(var.ACTUAL_IMAGE,None)
-                find_matches(bf, var.des_orb, des_orb2, var.kp_orb, kp_orb2)
+                find_matches(bf, var.des_orb, des_orb2, var.kp_orb, kp_orb2, (237, 241, 20))
 
-            if ACTIVE_SURF:
+            if var.ACTIVE_SURF:
                 kp_surf2, des_surf2 = var.surf.detectAndCompute(var.ACTUAL_IMAGE,None)
-                find_matches(bf, var.des_surf, des_surf2, var.kp_surf, kp_surf2)
+                find_matches(bf, var.des_surf, des_surf2, var.kp_surf, kp_surf2, (33, 218, 215))
 
 
-            if ACTIVE_SIFT:
+            if var.ACTIVE_SIFT:
                 kp_sift2, des_sift2 = var.sift.detectAndCompute(var.ACTUAL_IMAGE,None)
-                find_matches(bf, var.des_sift, des_sift2, var.kp_sift, kp_sift2)
+                find_matches(bf, var.des_sift, des_sift2, var.kp_sift, kp_sift2, (252, 89, 9))
 
 
 

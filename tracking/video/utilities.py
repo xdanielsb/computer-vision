@@ -13,3 +13,7 @@ def threshold_bin(img, THRESH_VALUE):
 
 def blur_(img):
     return cv2.blur(img,(5,5))
+
+
+#find intersection
+#https://stackoverflow.com/questions/8552364/opencv-detect-contours-intersection

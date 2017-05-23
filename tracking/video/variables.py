@@ -13,7 +13,7 @@ SIFT_IMG = None
 IMG_TRAIN = None
 OPTION_MATCHER = None
 
-COLOR = (184, 62, 54)
+
 
 #Matchers
 orb = None
@@ -34,7 +34,7 @@ ACTIVE_SIFT = True
 
 def options():
     global FINISH, DEBUG, TRACKING, PAUSED, NUM_IMAGE, ACTUAL_IMAGE
-    global OPTION_MATCHER, COLOR,  IMG_TRAIN
+    global OPTION_MATCHER,  IMG_TRAIN
     global orb, sift, surf, kp_orb, kp_sift, kp_surf, des_orb, des_sift
     global des_surf, ACTIVE_ORB, ACTIVE_SIFT, ACTIVE_SURF
 
@@ -67,30 +67,30 @@ def options():
             NUM_IMAGE  +=  1
 
         if(key == "o" or key  == "O"):
+            ACTIVE_ORB = not ACTIVE_ORB
             if ACTIVE_ORB == True:
-                ACTIVE_ORB = False
+                print("ORB was desactivated.")
             else:
-                ACTIVE_ORB = True
+                print("ORB was activated")
 
         if(key == "u" or key  == "U"):
+            ACTIVE_SURF = not ACTIVE_SURF
             if ACTIVE_SURF == True:
-                ACTIVE_SURF = False
+                print("SURF was desactivated")
             else:
-                ACTIVE_SURF = True
+                print("SURF was activated")
 
         if(key == "s" or key  == "S"):
+            ACTIVE_SIFT = not ACTIVE_SIFT
             if ACTIVE_SIFT == True:
-                ACTIVE_SIFT = False
+                print("SIFT was desactivated")
             else:
-                ACTIVE_SIFT = True
-
-            #Ensure that in the moment of the match the kps and des has the same
-            #type of data
-            #kp1, des1 = orb.detectAndCompute(IMG_TRAIN,None)
+                print("SIFT was activated")
 
 
-def drawMatches(matches, kp1, kp2):
-    global ACTUAL_IMAGE, COLOR
+
+def drawMatches(matches, kp1, kp2, COLOR):
+    global ACTUAL_IMAGE
 
     points = []
     # For each pair of points we have between both images
