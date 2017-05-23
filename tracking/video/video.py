@@ -15,19 +15,13 @@ def nothing(x):
 
 
 def choose_matcher():
-    var.OPTION_MATCHER = "SIFT"
 
-    if var.OPTION_MATCHER == "ORB":
+    if var.ACTIVE_ORB:
         var.orb = cv2.ORB()
-        var.OPTION_MATCHER = "ORB"
-
-    elif var.OPTION_MATCHER == "SIFT":
-        var.orb = cv2.SIFT()
-        var.OPTION_MATCHER = "SIFT"
-    else:
-        var.orb = cv2.SURF(400)
-        var.OPTION_MATCHER = "SURF"
-    print("The option matcher is: "+ var.OPTION_MATCHER)
+    if var.ACTIVE_SIFT:
+        var.sift = cv2.SIFT()
+    if var.ACTIVE_SURF:
+        var.surf = cv2.SURF(400)
 
 
 def debug(blur):
@@ -52,38 +46,26 @@ def tracking(blur):
         var.ACTUAL_IMAGE = draw_contours(var.ACTUAL_IMAGE, contours)
 
 
-def apply_matcher(bf, des2, kp2):
-    global des1, kp1, ACTUAL_IMAGE, img_train
-
-    if(False): #Check this part
-        FLANN_INDEX_KDTREE = 1
-        index_params = dict(algorithm = FLANN_INDEX_KDTREE, trees = 5)
-        search_params = dict(checks=50)   # or pass empty dictionary
-        flann = cv2.FlannBasedMatcher(index_params,search_params)
-        matches = flann.knnMatch(var.des1,des2,k=2)
-        print (matches)
-        # cv2.drawMatchesKnn expects list of lists as matches.
-        img3 = cv2.drawMatchesKnn(var.ACTUAL_IMAGE,var.kp1,var.img_train,kp2,good,flags=2)
-
-
+def find_matches(bf, des1, des2, kp1 , kp2):
+    matches = bf.match(des1,des2)
+    matches = sorted(matches, key = lambda x:x.distance)
+    print("Number of matches: {}".format(len(matches)))
+    if len(matches) < 10:
+        best_matches = matches
     else:
-        matches = bf.match(var.des1,des2)
-        matches = sorted(matches, key = lambda x:x.distance)
-        #print("Number of matches: {}".format(len(matches)))
-        if len(matches) < 10:
-            best_matches = matches
-        else:
-            best_matches = matches[0:len(matches)/5]
-        points = drawMatches(best_matches, var.kp1, kp2)
-        if len(points)>0:
-            hull = get_convex_hull(points)
-            print("hull",hull)
-
+        best_matches = matches[0:len(matches)/5]
+    points = drawMatches(best_matches, kp1, kp2)
+    if len(points)>0:
+        hull = get_convex_hull(points)
+        draw_convex_hull(var.ACTUAL_IMAGE, hull)
 
 
 def video_capture():
 
-    global FINISH, DEBUG, TRACKING, PAUSED, NUM_IMAGE, THRESH_VALUE, ACTUAL_IMAGE, kp1, des1, orb, IMG_TRAIN, OPTION_MATCHER
+    global FINISH, DEBUG, TRACKING, PAUSED, NUM_IMAGE, THRESH_VALUE, ACTUAL_IMAGE
+    global kp1, des1, orb, IMG_TRAIN, OPTION_MATCHER
+    global orb, sift, surf, kp_orb, kp_sift, kp_surf, des_orb, des_sift
+    global des_surf, ACTIVE_ORB, ACTIVE_SIFT, ACTIVE_SURF
 
     #Create the instance of the video
     cap = cv2.VideoCapture(1)
@@ -91,7 +73,6 @@ def video_capture():
     choose_matcher()
     #Instance the matcher
     bf = cv2.BFMatcher()
-
 
     while(var.FINISH == False):
         #Call the key listener for options
@@ -116,16 +97,26 @@ def video_capture():
             blur = blur_(thr)
 
             #Read key points image 1
-            kp2, des2 = var.orb.detectAndCompute(var.ACTUAL_IMAGE,None)
+            if ACTIVE_ORB:
+                kp_orb2, des_orb2 = var.orb.detectAndCompute(var.ACTUAL_IMAGE,None)
+                find_matches(bf, var.des_orb, des_orb2, var.kp_orb, kp_orb2)
+
+            if ACTIVE_SURF:
+                kp_surf2, des_surf2 = var.surf.detectAndCompute(var.ACTUAL_IMAGE,None)
+                find_matches(bf, var.des_surf, des_surf2, var.kp_surf, kp_surf2)
+
+
+            if ACTIVE_SIFT:
+                kp_sift2, des_sift2 = var.sift.detectAndCompute(var.ACTUAL_IMAGE,None)
+                find_matches(bf, var.des_sift, des_sift2, var.kp_sift, kp_sift2)
+
+
 
             #Call debug options
             debug(blur)
 
             #Call tracking movement
             tracking(blur)
-
-            #Apply matcher in order to match features
-            apply_matcher(bf, des2, kp2)
 
             #Show the image
             cv2.setMouseCallback("VIDEO", click_and_crop)

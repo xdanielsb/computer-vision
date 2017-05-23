@@ -29,3 +29,12 @@ def find_contours(img):
 def draw_contours(img, contours):
     cv2.drawContours(img, contours, -1, (0,255,0), 3)
     return img
+
+
+def draw_convex_hull(img, hull):
+    num_points = len(hull)
+    for i in range (0,num_points):
+        start = hull[i %num_points]
+        end = hull[(i+1)%num_points]
+
+        cv2.line(img, (start[0][0], start[0][1]),(end[0][0], end[0][1]),[0,255,0],2)

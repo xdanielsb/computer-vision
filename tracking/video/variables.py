@@ -14,14 +14,29 @@ IMG_TRAIN = None
 OPTION_MATCHER = None
 
 COLOR = (184, 62, 54)
-kp1 = None
-des1 = None
-orb = None
 
+#Matchers
+orb = None
+kp_orb = None
+des_orb = None
+ACTIVE_ORB = True
+
+surf = None
+kp_surf = None
+des_surf = None
+ACTIVE_SURF = True
+
+sift = None
+kp_sift = None
+des_sift = None
+ACTIVE_SIFT = True
 
 
 def options():
-    global FINISH, DEBUG, TRACKING, PAUSED, NUM_IMAGE, ACTUAL_IMAGE, OPTION_MATCHER, COLOR, orb, IMG_TRAIN, des1, kp1
+    global FINISH, DEBUG, TRACKING, PAUSED, NUM_IMAGE, ACTUAL_IMAGE
+    global OPTION_MATCHER, COLOR,  IMG_TRAIN
+    global orb, sift, surf, kp_orb, kp_sift, kp_surf, des_orb, des_sift
+    global des_surf, ACTIVE_ORB, ACTIVE_SIFT, ACTIVE_SURF
 
     key  = chr(cv2.waitKey(33) & 0xFF)
 
@@ -51,27 +66,27 @@ def options():
             print("The image {} was saved.".format(name_image))
             NUM_IMAGE  +=  1
 
-        if(key == "c" or key  == "C"):
-            if OPTION_MATCHER == "ORB":
-                orb = cv2.SIFT()
-                OPTION_MATCHER = "SIFT"
-                print("The new method is SIFT")
-                COLOR = (207, 158, 54)
-
-            elif OPTION_MATCHER == "SIFT":
-                orb = cv2.SURF(400)
-                print ("The new method is SURF")
-                OPTION_MATCHER = "SURF"
-                COLOR = (5, 201, 182)
+        if(key == "o" or key  == "O"):
+            if ACTIVE_ORB == True:
+                ACTIVE_ORB = False
             else:
-                OPTION_MATCHER == "SURF"
-                orb = cv2.ORB()
-                print("The new method is ORB")
-                OPTION_MATCHER = "ORB"
-                COLOR = (184, 62, 54)
+                ACTIVE_ORB = True
+
+        if(key == "u" or key  == "U"):
+            if ACTIVE_SURF == True:
+                ACTIVE_SURF = False
+            else:
+                ACTIVE_SURF = True
+
+        if(key == "s" or key  == "S"):
+            if ACTIVE_SIFT == True:
+                ACTIVE_SIFT = False
+            else:
+                ACTIVE_SIFT = True
+
             #Ensure that in the moment of the match the kps and des has the same
             #type of data
-            kp1, des1 = orb.detectAndCompute(IMG_TRAIN,None)
+            #kp1, des1 = orb.detectAndCompute(IMG_TRAIN,None)
 
 
 def drawMatches(matches, kp1, kp2):
@@ -99,7 +114,9 @@ def drawMatches(matches, kp1, kp2):
 
 def click_and_crop(event, x, y, flags, param):
     # grab references to the global variables
-    global refPt, cropping, ACTUAL_IMAGE, CROP, IMG_TRAIN, kp1, des1, orb
+    global refPt, cropping, ACTUAL_IMAGE, CROP, IMG_TRAIN
+    global orb, sift, surf, kp_orb, kp_sift, kp_surf, des_orb, des_sift
+    global des_surf, ACTIVE_ORB, ACTIVE_SIFT, ACTIVE_SURF
 
     # if the left mouse button was clicked, record the starting
     # (x, y) coordinates and indicate that cropping is being
@@ -114,7 +131,6 @@ def click_and_crop(event, x, y, flags, param):
             #cv2.rectangle(ACTUAL_IMAGE, CROP[0], CROP[1], (0, 255, 0), 2)
 
 
-
     # check to see if the left mouse button was released
     elif event == cv2.EVENT_LBUTTONUP:
 
@@ -127,4 +143,9 @@ def click_and_crop(event, x, y, flags, param):
         IMG_TRAIN = result
 
         # find the keypoints and descriptors with SIFT
-        kp1, des1 = orb.detectAndCompute(IMG_TRAIN,None)
+        if ACTIVE_ORB:
+            kp_orb, des_orb = orb.detectAndCompute(IMG_TRAIN,None)
+        if ACTIVE_SURF:
+            kp_surf, des_surf = surf.detectAndCompute(IMG_TRAIN,None)
+        if ACTIVE_SIFT:
+            kp_sift, des_sift = sift.detectAndCompute(IMG_TRAIN,None)
