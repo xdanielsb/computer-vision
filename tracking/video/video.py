@@ -48,6 +48,7 @@ def tracking(blur):
     if(var.TRACKING):
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         #DRAW ALL COUNTOURS IN THE IMAGE
+        print(contours)
         cv2.drawContours(var.ACTUAL_IMAGE, contours, -1, (0,255,0), 3)
 
 
