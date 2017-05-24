@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+from useful_functions import get_hu_moments
 
 FINISH = False
 DEBUG = False
@@ -155,8 +156,9 @@ def click_and_crop(event, x, y, flags, param):
 
         CROP = [(0,0),(0,0)]
         if(result.shape[0] >5):
+            print("HU MOMENT ")
+            print(get_hu_moments(result))
             cv2.imshow('Image to track', result)
-            cv2.resizeWindow('Image to track', 10,10)
             cv2.moveWindow('Image to track', 10, 500)
 
         # trainImage

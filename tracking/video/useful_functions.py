@@ -1,8 +1,10 @@
 import cv2
 import numpy as np
+from utilities import to_gray
 
 def get_hu_moments(img):
     """ Get hu moments given an image"""
+    img = to_gray(img)
     res = cv2.HuMoments(cv2.moments(img))
     return res
 

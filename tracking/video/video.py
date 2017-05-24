@@ -7,6 +7,12 @@ from useful_functions import *
 import numpy as np
 import cv2
 from matplotlib import pyplot as plt
+
+import warnings
+import matplotlib.cbook
+warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
+
+
 NUM_SUBPLOT = 1
 
 #Auxiliar variable to help me to intance once
@@ -154,16 +160,21 @@ def video_capture():
                 hull = get_convex_hull(np.array(BEST_POINTS, dtype=np.float32))
                 draw_convex_hull(var.ACTUAL_IMAGE, hull, (255, 255, 255))
                 BEST_POINTS = []
-                plt.subplot(4,4, NUM_SUBPLOT)
-                if True:
 
-                    NUM_SUBPLOT = ((NUM_SUBPLOT +1) % 17)
-                    if(NUM_SUBPLOT == 0):
-                        NUM_SUBPLOT +=  1
-                    print(NUM_SUBPLOT)
-                    plt.imshow(var.ACTUAL_IMAGE)
-                    #plt.show()
-                    plt.pause(3)
+                if var.ACTIVE_FOLLOW or True:
+
+                    try:
+                        plt.subplot(4,4, NUM_SUBPLOT)
+                        NUM_SUBPLOT = ((NUM_SUBPLOT +1) % 17)
+                        if(NUM_SUBPLOT == 0):
+                            NUM_SUBPLOT +=  1
+                        #print(NUM_SUBPLOT)
+                        plt.imshow(var.ACTUAL_IMAGE)
+                        #plt.show()
+                        plt.pause(0.001)
+                        var.options()
+                    except Exception as e:
+                        print(e)
 
 
             #print("Num of convex: {}".format( len(convex)))
