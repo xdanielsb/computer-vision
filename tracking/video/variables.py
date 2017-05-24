@@ -109,7 +109,7 @@ def drawMatches(matches, kp1, kp2, c):
 
         cv2.circle(ACTUAL_IMAGE, (int(x2),int(y2)), 4, c, 3)
 
-    return np.array(points, dtype=np.float32)
+    return np.array(points, dtype=np.float32), points
 
 
 def click_and_crop(event, x, y, flags, param):
