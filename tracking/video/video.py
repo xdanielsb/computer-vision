@@ -91,7 +91,7 @@ def video_capture():
     global kp1, des1, orb, IMG_TRAIN, OPTION_MATCHER
     global orb, sift, surf, kp_orb, kp_sift, kp_surf, des_orb, des_sift
     global des_surf, ACTIVE_ORB, ACTIVE_SIFT, ACTIVE_SURF, BEST_POINTS
-    global ACTIVE_METHODS, NUM_SUBPLOT
+    global ACTIVE_METHODS, NUM_SUBPLOT, ACTIVE_FOLLOW
 
     #Create the instance of the video
     cap = cv2.VideoCapture(1)
@@ -155,13 +155,15 @@ def video_capture():
                 draw_convex_hull(var.ACTUAL_IMAGE, hull, (255, 255, 255))
                 BEST_POINTS = []
                 plt.subplot(4,4, NUM_SUBPLOT)
-                NUM_SUBPLOT = ((NUM_SUBPLOT +1) % 17)
-                if(NUM_SUBPLOT == 0):
-                    NUM_SUBPLOT +=  1
-                print(NUM_SUBPLOT)
-                plt.imshow(var.ACTUAL_IMAGE)
-                #plt.show()
-                plt.pause(3)
+                if True:
+
+                    NUM_SUBPLOT = ((NUM_SUBPLOT +1) % 17)
+                    if(NUM_SUBPLOT == 0):
+                        NUM_SUBPLOT +=  1
+                    print(NUM_SUBPLOT)
+                    plt.imshow(var.ACTUAL_IMAGE)
+                    #plt.show()
+                    plt.pause(3)
 
 
             #print("Num of convex: {}".format( len(convex)))

@@ -6,6 +6,7 @@ DEBUG = False
 TRACKING = False
 PAUSED = False
 ACTIVE_METHODS = True
+ACTIVE_FOLLOW = False
 
 NUM_IMAGE = 0
 THRESH_VALUE = 50
@@ -39,7 +40,7 @@ def options():
     global OPTION_MATCHER,  IMG_TRAIN
     global orb, sift, surf, kp_orb, kp_sift, kp_surf, des_orb, des_sift
     global des_surf, ACTIVE_ORB, ACTIVE_SIFT, ACTIVE_SURF
-    global ACTIVE_METHODS
+    global ACTIVE_METHODS, ACTIVE_FOLLOW
 
     key  = chr(cv2.waitKey(33) & 0xFF)
 
@@ -91,8 +92,8 @@ def options():
                 print("SIFT was activated")
 
         if(key == "f" or key  == "F"):
-            ACTIVE_SIFT = not ACTIVE_SIFT
-            if ACTIVE_SIFT == True:
+            ACTIVE_FOLLOW = not ACTIVE_FOLLOW
+            if ACTIVE_FOLLOW == True:
                 print("Follow was activated")
             else:
                 print("Follow  was desactivated")
@@ -153,9 +154,10 @@ def click_and_crop(event, x, y, flags, param):
         result = ACTUAL_IMAGE[CROP[0][1]:CROP[1][1], CROP[0][0]:CROP[1][0]]
 
         CROP = [(0,0),(0,0)]
-        cv2.imshow('Image to track', result)
-        cv2.resizeWindow('Image to track', 100,100)
-        cv2.moveWindow('Image to track', 10, 500)
+        if(result.shape[0] >5):
+            cv2.imshow('Image to track', result)
+            cv2.resizeWindow('Image to track', 10,10)
+            cv2.moveWindow('Image to track', 10, 500)
 
         # trainImage
         IMG_TRAIN = result
