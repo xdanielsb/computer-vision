@@ -57,15 +57,17 @@ def find_matches(bf, des1, des2, kp1 , kp2, color):
         best_matches = matches
     else:
         best_matches = matches[0:5]
-        for aux in best_matches:
-            print aux.distance
+        #for aux in best_matches:
+        #    print aux.distance
+
 
 
     points, aux = drawMatches(best_matches, kp1, kp2, color)
     BEST_POINTS.extend(aux[:2])
     if len(points)>0:
         hull = get_convex_hull(points)
-        draw_convex_hull(var.ACTUAL_IMAGE, hull, color)
+        if var.ACTIVE_METHODS:
+            draw_convex_hull(var.ACTUAL_IMAGE, hull, color)
         return hull
 
     return []
@@ -86,6 +88,7 @@ def video_capture():
     global kp1, des1, orb, IMG_TRAIN, OPTION_MATCHER
     global orb, sift, surf, kp_orb, kp_sift, kp_surf, des_orb, des_sift
     global des_surf, ACTIVE_ORB, ACTIVE_SIFT, ACTIVE_SURF, BEST_POINTS
+    global ACTIVE_METHODS
 
     #Create the instance of the video
     cap = cv2.VideoCapture(1)
@@ -119,15 +122,15 @@ def video_capture():
             convex = []
             #Read key points image 1
             if var.ACTIVE_ORB:
-                print("ORB")
+                #print("ORB")
                 kp_orb2, des_orb2 = var.orb.detectAndCompute(var.ACTUAL_IMAGE,None)
                 # rgb(20, 69, 241)
                 h1 = find_matches(bf, var.des_orb, des_orb2, var.kp_orb, kp_orb2, (20, 69, 241))
                 if h1 != []:
                     convex.append(h1)
 
-            if var.ACTIVE_SURF:
-                print("SURF")
+            if var.ACTIVE_SURF :
+                #print("SURF")
                 kp_surf2, des_surf2 = var.surf.detectAndCompute(var.ACTUAL_IMAGE,None)
                 # rgb(9, 73, 6)
                 h2 = find_matches(bf, var.des_surf, des_surf2, var.kp_surf, kp_surf2, (9, 73, 6))
@@ -136,7 +139,7 @@ def video_capture():
 
 
             if var.ACTIVE_SIFT:
-                print("SIFT")
+                #print("SIFT")
                 # rgb(252, 89, 9)
                 kp_sift2, des_sift2 = var.sift.detectAndCompute(var.ACTUAL_IMAGE,None)
                 h3 = find_matches(bf, var.des_sift, des_sift2, var.kp_sift, kp_sift2, (252, 89, 9))
@@ -165,6 +168,7 @@ def video_capture():
                 cv2.rectangle(var.ACTUAL_IMAGE, var.CROP[0], var.CROP[1], (0, 255, 0), 2)
 
             cv2.imshow("VIDEO", var.ACTUAL_IMAGE)
+            cv2.moveWindow("VIDEO", 10, 10) 
 
     # When everything done, release the capture
     cap.release()

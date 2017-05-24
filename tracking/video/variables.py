@@ -5,6 +5,8 @@ FINISH = False
 DEBUG = False
 TRACKING = False
 PAUSED = False
+ACTIVE_METHODS = True
+
 NUM_IMAGE = 0
 THRESH_VALUE = 50
 ACTUAL_IMAGE = None
@@ -37,6 +39,7 @@ def options():
     global OPTION_MATCHER,  IMG_TRAIN
     global orb, sift, surf, kp_orb, kp_sift, kp_surf, des_orb, des_sift
     global des_surf, ACTIVE_ORB, ACTIVE_SIFT, ACTIVE_SURF
+    global ACTIVE_METHODS
 
     key  = chr(cv2.waitKey(33) & 0xFF)
 
@@ -87,6 +90,12 @@ def options():
             else:
                 print("SIFT was activated")
 
+        if (key == "m" or key == "M"):
+            ACTIVE_METHODS = not ACTIVE_METHODS
+            if ACTIVE_METHODS == True:
+                print("VISUALIZATION OF METHODS  was activated")
+            else:
+                print("VISUALIZATION OF METHODS was desactivated")
 
 
 def drawMatches(matches, kp1, kp2, c):
@@ -106,8 +115,8 @@ def drawMatches(matches, kp1, kp2, c):
         points.append([x2,y2])
 
         # print("Detected point",x1,y1)
-
-        cv2.circle(ACTUAL_IMAGE, (int(x2),int(y2)), 4, c, 3)
+        if ACTIVE_METHODS:
+            cv2.circle(ACTUAL_IMAGE, (int(x2),int(y2)), 4, c, 3)
 
     return np.array(points, dtype=np.float32), points
 
