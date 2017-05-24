@@ -11,6 +11,7 @@
     U           Activate SURF method
     S           Activate SIFT method
     M           Visualize tracking methods
+    F           Follow the track object
 
 """
 from video import video_capture

@@ -6,6 +6,8 @@ from useful_functions import *
 
 import numpy as np
 import cv2
+from matplotlib import pyplot as plt
+NUM_SUBPLOT = 1
 
 #Auxiliar variable to help me to intance once
 FIRST = True
@@ -29,6 +31,7 @@ def debug(blur):
     global  DEBUG, THRESH_VALUE, FIRST
     if(var.DEBUG):
         cv2.imshow('blur', blur)
+        cv2.moveWindow("blur", 800, 0)
         if(FIRST):
             cv2.createTrackbar('THRESH_VALUE','blur',var.THRESH_VALUE,255,nothing)
             FIRST = False
@@ -88,7 +91,7 @@ def video_capture():
     global kp1, des1, orb, IMG_TRAIN, OPTION_MATCHER
     global orb, sift, surf, kp_orb, kp_sift, kp_surf, des_orb, des_sift
     global des_surf, ACTIVE_ORB, ACTIVE_SIFT, ACTIVE_SURF, BEST_POINTS
-    global ACTIVE_METHODS
+    global ACTIVE_METHODS, NUM_SUBPLOT
 
     #Create the instance of the video
     cap = cv2.VideoCapture(1)
@@ -151,6 +154,14 @@ def video_capture():
                 hull = get_convex_hull(np.array(BEST_POINTS, dtype=np.float32))
                 draw_convex_hull(var.ACTUAL_IMAGE, hull, (255, 255, 255))
                 BEST_POINTS = []
+                plt.subplot(4,4, NUM_SUBPLOT)
+                NUM_SUBPLOT = ((NUM_SUBPLOT +1) % 17)
+                if(NUM_SUBPLOT == 0):
+                    NUM_SUBPLOT +=  1
+                print(NUM_SUBPLOT)
+                plt.imshow(var.ACTUAL_IMAGE)
+                #plt.show()
+                plt.pause(3)
 
 
             #print("Num of convex: {}".format( len(convex)))
@@ -168,7 +179,7 @@ def video_capture():
                 cv2.rectangle(var.ACTUAL_IMAGE, var.CROP[0], var.CROP[1], (0, 255, 0), 2)
 
             cv2.imshow("VIDEO", var.ACTUAL_IMAGE)
-            cv2.moveWindow("VIDEO", 10, 10) 
+            cv2.moveWindow("VIDEO", 10, 10)
 
     # When everything done, release the capture
     cap.release()

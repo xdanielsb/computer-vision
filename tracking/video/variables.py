@@ -90,6 +90,13 @@ def options():
             else:
                 print("SIFT was activated")
 
+        if(key == "f" or key  == "F"):
+            ACTIVE_SIFT = not ACTIVE_SIFT
+            if ACTIVE_SIFT == True:
+                print("Follow was activated")
+            else:
+                print("Follow  was desactivated")
+
         if (key == "m" or key == "M"):
             ACTIVE_METHODS = not ACTIVE_METHODS
             if ACTIVE_METHODS == True:
@@ -146,7 +153,9 @@ def click_and_crop(event, x, y, flags, param):
         result = ACTUAL_IMAGE[CROP[0][1]:CROP[1][1], CROP[0][0]:CROP[1][0]]
 
         CROP = [(0,0),(0,0)]
-        cv2.imshow('CROP IMAGE', result)
+        cv2.imshow('Image to track', result)
+        cv2.resizeWindow('Image to track', 100,100)
+        cv2.moveWindow('Image to track', 10, 500)
 
         # trainImage
         IMG_TRAIN = result
