@@ -1,8 +1,31 @@
+"""
+    Hello User!!!
+    I'm daniel this software track an object in a
+    video in real time, using C, bash, dynamic
+    libraries, techniques of BigData, Complex
+    variables, Mathematics and Machine Vision.
+
+    Commands
+    Key         Function
+    T           Tracking
+    D           Debug Activated
+    F           Finish the program
+    P           Pause the camera
+    W           Save the image
+    O           Activate tracking method 1
+    U           Activate tracking method 2
+    S           Activate tracking method 3
+    M           Visualize tracking methods
+    F           Follow the track object
+
+"""
 #Just a dirty trick
 from variables import *
 import variables as var
 from utilities import *
 from useful_functions import *
+from subprocess import call
+#from launcher import __doc__
 
 import numpy as np
 import cv2
@@ -105,6 +128,9 @@ def video_capture():
     choose_matcher()
     #Instance the matcher
     bf = cv2.BFMatcher()
+
+    call(["clear"])
+    print(__doc__)
 
     while(var.FINISH == False):
         #Call the key listener for options
