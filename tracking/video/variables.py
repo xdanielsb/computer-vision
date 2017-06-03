@@ -74,23 +74,23 @@ def options():
         if(key == "o" or key  == "O"):
             ACTIVE_ORB = not ACTIVE_ORB
             if ACTIVE_ORB == True:
-                print("ORB was desactivated.")
+                print("Method 1 of tracking was desactivated.")
             else:
-                print("ORB was activated")
+                print("Method 1 of tracking  was activated")
 
         if(key == "u" or key  == "U"):
             ACTIVE_SURF = not ACTIVE_SURF
             if ACTIVE_SURF == True:
-                print("SURF was desactivated")
+                print("Method 2 of tracking  was desactivated")
             else:
-                print("SURF was activated")
+                print("Method 2 of tracking  was activated")
 
         if(key == "s" or key  == "S"):
             ACTIVE_SIFT = not ACTIVE_SIFT
             if ACTIVE_SIFT == True:
-                print("SIFT was desactivated")
+                print("Method 3 of tracking  was desactivated")
             else:
-                print("SIFT was activated")
+                print("Method 3 of tracking  was activated")
 
         if(key == "f" or key  == "F"):
             ACTIVE_FOLLOW = not ACTIVE_FOLLOW
