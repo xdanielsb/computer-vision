@@ -20,7 +20,9 @@ def readi(path, typer = "color"):
 
 def opening(img):
     kernel = np.ones((5,5),np.uint8)
-    result = cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel)
+    result = img
+    for i in range(0, 10):
+        result = cv2.morphologyEx(result, cv2.MORPH_OPEN, kernel)
     plt.subplot(1,2,1), plt.imshow(img, cmap="gray"), plt.title("Real Image")
     plt.subplot(1,2,2), plt.imshow(result, cmap="gray"), plt.title("Opening Image")
     plt.show()
