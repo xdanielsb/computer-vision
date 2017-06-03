@@ -18,10 +18,12 @@ def readi(path, typer = "color"):
         return cv2.imread(path, 0)
 
 
-def closing(img):
+def closing(img, num):
     kernel = np.ones((5,5),np.uint8)
     result = img
-    result = cv2.morphologyEx(result, cv2.MORPH_CLOSE, kernel)
+    for i in range (0,num):
+        result = cv2.morphologyEx(result, cv2.MORPH_CLOSE, kernel)
+
     plt.subplot(1,2,1), plt.imshow(img, cmap="gray"), plt.title("Real Image")
     plt.subplot(1,2,2), plt.imshow(result, cmap="gray"), plt.title("Closed Image =)")
     plt.show()
@@ -29,5 +31,5 @@ def closing(img):
 
 if __name__ == "__main__":
     img = readi("../../assets/images/black_noise.jpg", "gray")
-    closing(img)
+    closing(img, 100)
 
