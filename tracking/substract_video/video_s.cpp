@@ -1,5 +1,3 @@
-#include <opencv2/imgcodecs.hpp>
-#include <opencv2/videoio.hpp>
 #include <opencv2/highgui.hpp>
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"
@@ -77,7 +75,7 @@ void Start() {
     int n = 0;
     
     cout << "Press space to save a picture. q or esc to quit" << endl;
-    namedWindow(window_name, WINDOW_KEEPRATIO); //resizable window;
+    namedWindow(window_name, CV_WINDOW_KEEPRATIO); //resizable window;
     //createTrackbar( "Min Threshold:", window_name, &lowThreshold, max_lowThreshold, CannyThreshold );
     Mat frame;
 
