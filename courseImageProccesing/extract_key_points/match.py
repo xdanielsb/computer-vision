@@ -46,8 +46,12 @@ def drawMatches(img1, kp1, img2, kp2, matches):
     return out
 
 
-img1 = cv2.imread('images/1.jpg',0) # queryImage
-img2 = cv2.imread('images/8.jpg',0) # trainImage
+
+pathimg1 = "train/forest/bost98.jpg"
+pathimg2 = "test/forest/text46.jpg"
+
+img1 = cv2.imread(pathimg1,0) # queryImage
+img2 = cv2.imread(pathimg2,0) # trainImage
 
 # Initiate SIFT detector
 sift = cv2.xfeatures2d.SIFT_create()

@@ -3,8 +3,9 @@ import numpy as np
 import time
 
 # Read image and convert to grayscale
-imageName = 'images/a212018.jpg'
-ima=cv2.imread(imageName)
+
+pathimg1 = "train/forest/bost98.jpg"
+ima=cv2.imread(pathimg1)
 gray=cv2.cvtColor(ima,cv2.COLOR_BGR2GRAY)
 
 # Create detector and descriptor structures to compute SIFT
