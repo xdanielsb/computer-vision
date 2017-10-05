@@ -157,11 +157,10 @@ def trainAndTestLinearSVM_withfolds(train,test,GT_train,GT_test,folds,start,end,
 	tuned_parameters = [{'kernel': ['linear'], 'C':np.linspace(start,end,num=numparams)}]
 	clf = GridSearchCV(svm.SVC(), tuned_parameters, cv=folds,scoring='accuracy')
 	clf.fit(kernelMatrix, GT_train)
-	print(clf.best_params_)
 	predictMatrix = histogramIntersection(stdSlr.transform(test), train)
 	SVMpredictions = clf.predict(predictMatrix)
 	correct = sum(1.0 * (SVMpredictions == GT_test))
-	accuracy = correct / len(GT_test)
+	accuracy = (correct / len(GT_test))*100
 	end=time.time()
 	print 'Done in '+str(end-init)+' secs.'
 	return accuracy
