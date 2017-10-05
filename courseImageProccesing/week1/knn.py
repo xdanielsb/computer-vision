@@ -36,9 +36,7 @@ knn = cv2.ml.KNearest_create()
 knn.train(trainData, cv2.ml.ROW_SAMPLE, responses)
 
 
-
-
-#Getting images of each class
+#Testing the model
 for typei in clases:
   images = glob.glob("test/"+typei+"/*.jpg")[:2]
   for pathimg2 in images:
