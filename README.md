@@ -1,12 +1,142 @@
-#Good link https://www.mathworks.com/help/vision/ug/interpolation-methods.html?requestedDomain=www.mathworks.com
+Computer Vision
+====================
+This project contains some snippets, code, algorithms of Computer Vision that you may find useful.  
 
-#Artificial Inteligence Algorithms
-##Interpolation and Classification Techniques
 
 
-##KNN K-nearest neighbors   
-      ###Prediction- Zoom in on a image - Filling the gaps
-      ###Clasification - Clasify new data based on trained data.
-##Bilineal  -
-##Bicubic
-##B-splines
+Examples
+------------------------
+
+Prewit
+------
+<img src="./py-process/prewit/result_convs.png" />
+<img src="./py-process/prewit/prewit.png" />
+
+Canny
+-----
+<img src="./py-process/canny/canny.png" />
+
+Opening
+-------
+<img src="./py-process/morphological_transformation/opening/opening.png" />
+
+Closing
+-------
+<img src="./py-process/morphological_transformation/closing/closing.png" />
+
+Hit or Miss
+-----------
+<img src="./py-process/morphological_transformation/hit_or_miss/hit_or_miss.png" />
+
+Erotion
+-------
+<img src="./py-process/morphological_transformation/erotion/erotion.png" />
+
+Thining
+-------
+<img src="./py-process/morphological_transformation/thining/thining.png" />
+
+
+Gradient
+--------
+<img src="./py-process/morphological_transformation/gradient/gradient.png" />
+
+Dilate
+------
+<img src="./py-process/morphological_transformation/dilatation/dilate.png" />
+<img src="./py-process/dilate/dilate.png" />
+
+Skeleton
+--------
+<img src="./py-process/morphological_transformation/skeleton/skeleton.png" />
+
+Probabilistic Hough
+-------------------
+<img src="./py-process/hough/probalistic_hough.png" />
+
+Hough Transform
+---------------
+<img src="./py-process/hough/hough_transform.png" />
+
+Contour
+-------
+<img src="./py-process/contours/contour.png" />
+<img src="./py-process/assets/images/exam.png" />
+<img src="./py-process/assets/images/sudoku.png" />
+<img src="./py-process/assets/images/hand_3.png" />
+<img src="./py-process/assets/images/circles.png" />
+<img src="./py-process/assets/images/silouete.png" />
+<img src="./py-process/assets/images/opencv.png" />
+<img src="./py-process/assets/images/letterB.png" />
+<img src="./py-process/assets/images/smile.png" />
+<img src="./py-process/assets/images/hand_1.png" />
+<img src="./py-process/assets/images/hand_2.png" />
+
+
+Rotate
+------
+<img src="./py-process/rotation/rotate.png" />
+
+Bilinear Interpolation
+----------------------
+<img src="./py-process/interpolation_methods/bilinear.png" />
+
+Bicubic Interpolation
+---------------------
+<img src="./py-process/interpolation_methods/bicubic.png" />
+
+Knn Interpolation
+-----------------
+<img src="./py-process/interpolation_methods/knn.png" />
+
+Meshgrid Knn
+------------
+<img src="./py-process/knn_clasification/meshgrid_knn.png" />
+
+Knn from scratch
+----------------
+<img src="./py-process/knn_clasification/from_scratch_knn.png" />
+<img src="./py-process/subplots/subplot.png" />
+
+Threshold 
+---------
+<img src="./py-process/images_feautures/threshold/threshold_from_scratch.png" />
+<img src="./py-process/images_feautures/threshold/threshold.png" />
+<img src="./py-process/images_feautures/threshold/adaptative_threshold.png" />
+
+
+Adding Images 
+-------------
+<img src="./py-process/add_images/result.png" />
+
+
+Equalize Histogram
+------------------
+<img src="./py-process/histogram/equalize_hist.png" />
+
+
+Histogram
+---------
+<img src="./py-process/histogram/hist.png" />
+
+Flood fill
+----------
+<img src="./py-process/floodfill/floodfill.png" />
+<img src="./py-process/dilate/smile.png" />
+
+
+
+
+</p>
+
+
+
+Developer
+----------
+* Name : Daniel Santos
+* Email : dfsantosbu@unal.edu.co
+
+License
+-------
+
+This project is licensed under the GPL V3 License - see the [LICENSE](LICENSE) file for details
