@@ -53,16 +53,7 @@ Skeleton
 Probabilistic Hough
 -------------------
 <img src="./py-process/hough/probalistic_hough.png" />
-<img src="./py-process/assets/images/exam.png" />
-<img src="./py-process/assets/images/sudoku.png" />
-<img src="./py-process/assets/images/hand_3.png" />
-<img src="./py-process/assets/images/circles.png" />
-<img src="./py-process/assets/images/silouete.png" />
-<img src="./py-process/assets/images/opencv.png" />
-<img src="./py-process/assets/images/letterB.png" />
-<img src="./py-process/assets/images/smile.png" />
-<img src="./py-process/assets/images/hand_1.png" />
-<img src="./py-process/assets/images/hand_2.png" />
+
 Hough Transform
 ---------------
 <img src="./py-process/hough/hough_transform.png" />
