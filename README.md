@@ -53,14 +53,6 @@ Skeleton
 Probabilistic Hough
 -------------------
 <img src="./py-process/hough/probalistic_hough.png" />
-
-Hough Transform
----------------
-<img src="./py-process/hough/hough_transform.png" />
-
-Contour
--------
-<img src="./py-process/contours/contour.png" />
 <img src="./py-process/assets/images/exam.png" />
 <img src="./py-process/assets/images/sudoku.png" />
 <img src="./py-process/assets/images/hand_3.png" />
@@ -71,6 +63,13 @@ Contour
 <img src="./py-process/assets/images/smile.png" />
 <img src="./py-process/assets/images/hand_1.png" />
 <img src="./py-process/assets/images/hand_2.png" />
+Hough Transform
+---------------
+<img src="./py-process/hough/hough_transform.png" />
+
+Contour
+-------
+<img src="./py-process/contours/contour.png" />
 
 
 Rotate
@@ -123,8 +122,6 @@ Flood fill
 ----------
 <img src="./py-process/floodfill/floodfill.png" />
 <img src="./py-process/dilate/smile.png" />
-
-
 
 
 </p>
