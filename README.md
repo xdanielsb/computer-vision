@@ -2,6 +2,11 @@ Computer Vision
 ====================
 This project contains some snippets, code, algorithms of Computer Vision that you may find useful.  
 
+Projects using CV
+------------------------
+
+ - [ Tracking ]( https://github.com/xdanielsb/TrackImages )
+ - [ Grade exams ]( https://www.youtube.com/watch?v=uTyJL015c90 )
 
 
 Examples
