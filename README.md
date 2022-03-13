@@ -123,12 +123,6 @@ Flood fill
 </p>
 
 
-
-Developer
-----------
-* Name : Daniel Santos
-* Email : dfsantosbu@unal.edu.co
-
 License
 -------
 
